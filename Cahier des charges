@@ -2,7 +2,7 @@
 Consignes:
   - Rééxpliquer le projet avec nos propres mots
   -Objectifs
-  -Choix des librairies/API
+  -Choix des librairies/API --> (jsoup: Java HTML Parser)
   -Affecter les taches  ( difficultés, durée, risque)
   -Choix des tests avec J-Unit
   -
