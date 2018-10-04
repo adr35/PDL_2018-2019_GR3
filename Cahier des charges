@@ -1,10 +1,22 @@
 
 Consignes:
-  - Rééxpliquer le projet avec nos propres mots
-  -Objectifs
-  -Choix des librairies/API --> (jsoup: Java HTML Parser)
-  -Affecter les taches  ( difficultés, durée, risque)
+  -Rééxpliquer le projet avec nos propres mots
+  
+  -Objectifs : Récupérer une page wikipédia 
+                  --> Chercher les tableaux
+                      --> Extraire sous CSV ces tableaux de deux façons : 
+                                          -HTML5
+                                          -Wikitext
+                                          
+  -Pourquoi ? : Pouvoir traiter les tableaux de wikipédia simplement grâce au format CSV.
+ 
+  -Choix des librairies/API --> ( jsoup: Java HTML Parser : https://jsoup.org/download ,
+                                 Exemple : https://jsoup.org/cookbook/extracting-data/example-list-links )
+                                 
+  -Affecter les taches  (difficultés, durée, risque)
+  
   -Choix des tests avec J-Unit
+  
   -
 
 
