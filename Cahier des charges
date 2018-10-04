@@ -2,18 +2,23 @@
 Consignes:
   -Rééxpliquer le projet avec nos propres mots
   
-  -Objectifs : Récupérer une page wikipédia 
-                  --> Chercher les tableaux
+  -Objectifs : Récupérer une page wikipédia (En récupérer le Maximum) (JSOUP)
+                  --> Chercher les tableaux (Traitement des balises)
                       --> Extraire sous CSV ces tableaux de deux façons : 
-                                          -HTML5
+                                          -HTML5 (Traitement des balises)
                                           -Wikitext
                                           
   -Pourquoi ? : Pouvoir traiter les tableaux de wikipédia simplement grâce au format CSV.
  
   -Choix des librairies/API --> ( jsoup: Java HTML Parser : https://jsoup.org/download ,
                                  Exemple : https://jsoup.org/cookbook/extracting-data/example-list-links )
+                                 Jsoup semble être la librairie la plus utilisée pour récupérer une page HTML,
+                                 il sera donc plus simple de trouver des aides sur son utilisation.
                                  
-  -Affecter les taches  (difficultés, durée, risque)
+  -Affecter les taches  (difficultés, durées, risques)
+    
+    Division du groupe en binome, chacun traitre un tableau wiki différent, puis mise en commun afin de généraliser l'algo
+    Travail sur HTML5 puis wikitext car HTML5 devrait être plus simple que wikitext.
   
   -Choix des tests avec J-Unit
   
