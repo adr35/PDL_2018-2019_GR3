@@ -38,12 +38,14 @@ Consignes:
   
   </tbody>
   
-  on retrouve aussi le lien de la modification du tableau dans le code source de la page html
-  <h3><span id="Par_.C3.A9dition"></span><span class="mw-headline" id="Par_édition">Par édition</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span>
-  <a href="/w/index.php?title=Coupe_du_monde_de_football&amp;veaction=edit&amp;section=15" class="mw-editsection-visualeditor" title="Modifier la section :
+  on retrouve aussi le lien de la modification du tableau dans le code source de la page html juste au dessus de la balise <table>  ( cf ci dessus)
   
-  on retrouve cette même classe dans le wikitext du tableau
+  <a href="/w/index.php?title=Coupe_du_monde_de_football&amp;action=edit&amp;section=15" title="Modifier la section : Par édition">modifier le code</a>
+  <span class="mw-editsection-bracket">]</span></span></h3>
+  
+  on retrouve ce même nom de classe dans le wikitext du tableau
   
   {| class="wikitable alternance sortable" style="font-size:85%"
 
+le euuuh wikitext se termine par la balise </textarea>
 
