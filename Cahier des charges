@@ -4,6 +4,8 @@ Consignes:
   
   -Objectifs : Récupérer une page wikipédia (En récupérer le Maximum) (JSOUP)
                   --> Chercher les tableaux (Traitement des balises)
+                  https://fr.wikipedia.org/w/index.php?title=Coupe_du_monde_de_football&action=edit&section=11
+                      --> paragraphe réparti en section, 
                       --> Extraire sous CSV ces tableaux de deux façons : 
                                           -HTML5 (Traitement des balises)
                                           -Wikitext
@@ -22,6 +24,26 @@ Consignes:
   
   -Choix des tests avec J-Unit
   
-  -
+  
+  
+  
+  
+  
+  Récupérer le tableau en html :
+  
+  <table class="wikitable alternance sortable" style="font-size:85%">
+  ...
+  <tbody><tr>
+  ...
+  
+  </tbody>
+  
+  on retrouve aussi le lien de la modification du tableau dans le code source de la page html
+  <h3><span id="Par_.C3.A9dition"></span><span class="mw-headline" id="Par_édition">Par édition</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span>
+  <a href="/w/index.php?title=Coupe_du_monde_de_football&amp;veaction=edit&amp;section=15" class="mw-editsection-visualeditor" title="Modifier la section :
+  
+  on retrouve cette même classe dans le wikitext du tableau
+  
+  {| class="wikitable alternance sortable" style="font-size:85%"
 
 
