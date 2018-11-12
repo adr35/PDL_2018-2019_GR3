@@ -2,6 +2,11 @@ package src.main.java.model;
 
 import java.util.ArrayList;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 /**
  * <!-- begin-user-doc -->
  * <!--  end-user-doc  -->
@@ -51,7 +56,7 @@ public class FormatHTML
 		    }
 		}*/
 		FormatHTML result = new FormatHTML(separateur[1]);
-		System.out.println(separateur[1]);
+		//System.out.println(separateur[1]);
 		return result;
 	}
 	
@@ -59,6 +64,23 @@ public class FormatHTML
 		String[] separateur = this.html.split("</tbody>");
 		FormatHTML result = new FormatHTML(separateur[0]);
 		System.out.println(separateur[0]);
+		return result;
+	}
+	
+	public FormatHTML PremierParse() {
+		Document doc = Jsoup.parse(this.html);
+		System.out.println(doc.html());
+		FormatHTML result = new FormatHTML();
+		Elements rows = doc.getElementsByTag("a");
+		for(Element row : rows) {
+			Elements cells = row.getElementsByTag("th");
+			result.html += row.text();
+			//System.out.println(row.text());
+			for(Element cell : cells) {
+				//System.out.println(cell.text());
+			}
+		}
+		//result.html = doc.html();
 		return result;
 	}
 
