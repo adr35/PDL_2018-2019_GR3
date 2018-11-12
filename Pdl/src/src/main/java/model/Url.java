@@ -1,5 +1,13 @@
 package src.main.java.model;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,6 +52,15 @@ public class Url
 	public FormatHTML ToHTML(Url parameter) {
 		// TODO implement me
 		return null;
+	}
+	
+	public String getUrl() {
+		return this.url;
+	}
+	
+	public String HTML() throws IOException {
+		Document doc = Jsoup.connect(getUrl()).get();
+		return doc.html();
 	}
 
 }
