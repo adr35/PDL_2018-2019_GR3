@@ -1,5 +1,8 @@
 package src.main.java.model;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -62,6 +65,20 @@ public class Url
 		Document doc = Jsoup.connect(getUrl()).get();
 		return doc.html();
 	}
+	
+	/* URLs courants :
+	public boolean vérifURL(HttpServletRequest requete, HttpServletResponse reponse, Object handler) throws Exception {
+		String url = requete.getRequestURL().toString();
+		requete.setAttribute("urlBySpring", url);
+
+		return true;
+
+	}
+
+	public String recup(HttpServletRequest request) {
+		String url = request.getRequestURL();
+		System.out.println(url);
+	} */
 
 }
 
