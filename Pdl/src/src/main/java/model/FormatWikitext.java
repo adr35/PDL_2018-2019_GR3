@@ -37,8 +37,7 @@ public class FormatWikitext
 			FormatWikitext result = new FormatWikitext(separateur[1]);
 			System.out.println("Texte à ajouter à l'URL:" + separateur[1]);
 			return result;
-			/*Url url = new Url("https://fr.wikipedia.org/w/index.php?title=" + result +"&action=edit&section=1");
-			return url;*/
+			
 		}
 	
 	/*public FormatWikitext wikisplit2() {
@@ -46,8 +45,25 @@ public class FormatWikitext
 		FormatWikitext result = new FormatWikitext(separateur[0]);
 		System.out.println(separateur[0]);
 		return result;
-	}*/
-
+	}
+	
+	*/
+	/** Nouvel URL pour la page Wikitext
+	 * 
+	 * @return 
+	 */
+	public Url newUrl() {
+		FormatWikitext result = wikisplit();
+		Url newUrl = new Url("https://fr.wikipedia.org/w/index.php?title=" + result +"&action=edit&section=1");
+		return newUrl;
+			
+	}
+	
+	public void main (String[] args) {
+		//A tester...
+		Url jeanlouis = newUrl();
+		System.out.println(jeanlouis);
+	}
 
 }
 
