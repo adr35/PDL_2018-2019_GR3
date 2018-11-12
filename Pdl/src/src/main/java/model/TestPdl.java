@@ -15,44 +15,37 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+
 public class TestPdl {
+
+	final static File coupeDuMondeHTML = new File("html.txt");
+	//final static File presidentUSA = new File("HTML.txt");
 	
-	 final static File coupeDuMondeHTML = new File("html.txt");
-	 
 	/*@Test
-	public void testUrl() throws IOException {
-		Url url = new Url("https://fr.wikipedia.org/wiki/Coupe_du_monde_de_football");
-		String HTML = url.HTML();
-		/*List<String> txttoString = Files.readAllLines(coupeDuMondeHTML.toPath());
-		txttoString.toString();
-		final FileInputStream lFileInputStream = new FileInputStream(coupeDuMondeHTML);
-		String end = "";
-		String endHTML = "";
-		try{
-			InputStream flux=new FileInputStream("html.txt"); 
-			InputStreamReader lecture=new InputStreamReader(flux);
-			BufferedReader buff=new BufferedReader(lecture);
-			String ligne;
-			while ((ligne=buff.readLine())!=null){		
-				end += ligne;
-			}		
-			buff.close(); 
-			}		
-			catch (Exception e){
-			System.out.println(e.toString());
-			}
-		assertEquals("TestUrl 1", endHTML,end);
+	public void test() {
+		fail("Not yet implemented");
 	}*/
-	
-	
-	 @Test
-		public void testUrl() throws IOException {
-		 Url url = new Url("https://fr.wikipedia.org/wiki/Coupe_du_monde_de_football");
-			String HTML = url.HTML();
-		 FormatHTML test = new FormatHTML(HTML);
-		 test = test.PremierSplit();
-		 test = test.SecondSplit();
-		 assertEquals("", test.html, "");
+
+	 
+		
+		 @Test
+			public void testUrl() throws IOException {
+			 Url url = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
+			 String HTML = url.HTML();
+			 FormatHTML test = new FormatHTML(HTML);
+			 test = test.PremierSplit();
+			 test = test.SecondSplit();
+			 assertEquals("", test.html, "");
+			 
+		 }
 		 
-	 }
-}
+		 @Test
+		 public void testwiki() throws IOException {
+			 Url url = new Url("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
+			 String HTML = url.HTML();
+			 FormatWikitext test = new FormatWikitext(HTML);
+			 test = test.wikisplit();
+			 //test = test.wikisplit2();
+			 assertEquals("", test.wikitext, "");
+		 }
+	}
