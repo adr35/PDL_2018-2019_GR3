@@ -66,7 +66,19 @@ public class Url
 		return doc.html();
 	}
 	
-	/* URLs courants :
+	/**
+	 * Utilisation de Servelet, un API, pour créer dynamiquement des données au sein
+	 * d'un serveur HTTP. Ces données sont le plus généralement présentées au format
+	 * HTML
+	 * 
+	 * @param requete
+	 * @param reponse
+	 * @param handler
+	 * @return
+	 * @throws Exception
+	 */
+	
+	/*URLs courants :
 	public boolean vérifURL(HttpServletRequest requete, HttpServletResponse reponse, Object handler) throws Exception {
 		String url = requete.getRequestURL().toString();
 		requete.setAttribute("urlBySpring", url);
