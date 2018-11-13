@@ -39,10 +39,26 @@ public class FormatWikitext
 	public FormatWikitext wikisplit() {
 			String[] separateur = this.wikitext.split("title");
 			FormatWikitext result = new FormatWikitext(separateur[1]);
+			//separateur[1].replaceAll("<","");
 			System.out.println("Texte à ajouter à l'URL:" + separateur[1]);
-			return result;
+			//System.out.print(result);
+			charArrayToArrayList(separateur[1]);
 			
+			return result;
 		}
+	
+	public void charArrayToArrayList(String url) {
+		char[] chars = url.toCharArray();
+		for(int i =0; i<url.length(); i++) {
+			urlTitle.add(i, chars[i]);
+			//System.out.print(chars[i]);
+		}
+		//for(int j=0; j<12;j++)
+		urlTitle.remove(0);
+		urlTitle.remove(url.length()-2);
+		urlTitle.remove(url.length()-3);
+		System.out.print(urlTitle);
+	}
 	
 	/*public FormatWikitext wikisplit2() {
 		String[] separateur = this.wikitext.split("title");
