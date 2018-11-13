@@ -19,6 +19,10 @@ public class FormatWikitext
 		this.wikitext = new String();
 	}
 
+	public FormatWikitext(String wikitext){
+		this.wikitext = wikitext;
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * Renvoie la prodction CSV correspondant au tableau de la page HTML sous forme CSV
