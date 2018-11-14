@@ -72,6 +72,16 @@ public class FormatWikitext
 		return urlfinal;
 	}
 	
+	/*	public String ArrayListtoString (ArrayList <Character> al) {
+		 StringBuilder builder = new StringBuilder(al.size());
+		    for(Character ch: al)
+		    {
+		        builder.append(ch);
+		    }
+		    System.out.print(builder.toString());
+		    return builder.toString();
+	}*/
+	
 	/*public FormatWikitext wikiparse() {
 		Document doc = Jsoup.parse(this.wikitext);
 		System.out.println(doc.html());
