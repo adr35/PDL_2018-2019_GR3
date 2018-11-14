@@ -97,7 +97,7 @@ public class FormatHTML
 	public FormatHTML PremierParse() throws IOException {
 		
 	    File file = new File("test.txt");
-	    //file.createNewFile();
+	    file.createNewFile();
 	    FileWriter writer = new FileWriter(file);
 
 		
