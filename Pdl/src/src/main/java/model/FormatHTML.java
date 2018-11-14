@@ -43,8 +43,8 @@ public class FormatHTML
 	
 	//remplace le return par un String tab[] on aura tout les tableaux de la page
 	
-	/*début : wikitable
-	 * fin : à modifier
+	/*dÃ©but : wikitable
+	 * fin : Ã  modifier
 	 */
 	
 	public FormatHTML PremierSplit() {
@@ -80,11 +80,11 @@ public class FormatHTML
 		Document doc = Jsoup.parse(this.html);
 		System.out.println(doc.html());
 		FormatHTML result = new FormatHTML();
-		Elements rows = doc.getElementsByTag("th");
+		Elements rows = doc.getAllElements();
 		for (Element row : rows ) {
-			System.out.println("la");
 			
-			result.html += row.text();
+			
+			//result.html += row.text();
 			System.out.println(row.text());
 
 		}
