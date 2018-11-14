@@ -63,24 +63,51 @@ public class FormatHTML
 	public FormatHTML SecondSplit() {
 		String[] separateur = this.html.split("</tbody>");
 		FormatHTML result = new FormatHTML(separateur[0]);
-		System.out.println(separateur[0]);
+		//System.out.println(separateur[0]);
 		return result;
 	}
 	
-	public FormatHTML PremierParse() {
+	
+	public FormatHTML headSplit() {
+		String [] separateur = this.html.split("<tr>");
+		FormatHTML result = new FormatHTML(separateur[1]);
+		//System.out.println(separateur[1]);
+		return result;		
+	}
+	
+	public FormatHTML headParse() {
+		
 		Document doc = Jsoup.parse(this.html);
 		System.out.println(doc.html());
+		FormatHTML result = new FormatHTML();
+		Elements rows = doc.getElementsByTag("th");
+		for (Element row : rows ) {
+			System.out.println("la");
+			
+			result.html += row.text();
+			System.out.println(row.text());
+
+		}
+		result.html = doc.html();
+		return result;	
+	}
+	
+
+	
+	public FormatHTML PremierParse() {
+		Document doc = Jsoup.parse(this.html);
+		//System.out.println(doc.html());
 		FormatHTML result = new FormatHTML();
 		Elements rows = doc.getElementsByTag("a");
 		for(Element row : rows) {
 			Elements cells = row.getElementsByTag("th");
 			result.html += row.text();
-			//System.out.println(row.text());
+			System.out.println(row.text());
 			for(Element cell : cells) {
 				//System.out.println(cell.text());
 			}
 		}
-		//result.html = doc.html();
+		result.html = doc.html();
 		return result;
 	}
 
