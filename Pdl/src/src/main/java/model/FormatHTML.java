@@ -94,20 +94,32 @@ public class FormatHTML
 	
 
 	
-	public FormatHTML PremierParse() {
+	public FormatHTML PremierParse() throws IOException {
+		
+	    File file = new File("test.txt");
+	    //file.createNewFile();
+	    FileWriter writer = new FileWriter(file);
+
+		
 		Document doc = Jsoup.parse(this.html);
 		//System.out.println(doc.html());
 		FormatHTML result = new FormatHTML();
 		Elements rows = doc.getElementsByTag("a");
 		for(Element row : rows) {
+			System.out.println(row.text());
 			Elements cells = row.getElementsByTag("th");
 			result.html += row.text();
-			System.out.println(row.text());
+			
+			writer.write(row.text().concat(", "));
+			writer.write("\n");
 			for(Element cell : cells) {
+				
 				//System.out.println(cell.text());
+				
 			}
 		}
 		result.html = doc.html();
+		writer.close();
 		return result;
 	}
 
