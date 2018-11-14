@@ -44,7 +44,7 @@ public class FormatWikitext
 			//separateur[1].replaceAll("<","");
 			//System.out.println("Texte à ajouter à l'URL:" + separateur[1]);
 			//System.out.print(result);
-			charArrayToString(charArrayToArrayList(separateur[1]));
+			ArrayListToString(charArrayToArrayList(separateur[1]));
 			return result;
 		}
 	
@@ -64,7 +64,7 @@ public class FormatWikitext
 		return urlTitle;
 	}
 		
-	public String charArrayToString(ArrayList<Character> urlTitle) {
+	public String ArrayListToString(ArrayList<Character> urlTitle) {
 		for(int i =0;i<urlTitle.size();i++) {
 			urlfinal += urlTitle.get(i); 
 		}
@@ -103,7 +103,7 @@ public class FormatWikitext
 	 * @return 
 	 */
 	public Url newUrl() {
-		String URL = charArrayToString(urlTitle);
+		String URL = ArrayListToString(urlTitle);
 		Url newUrl = new Url("https://fr.wikipedia.org/w/index.php?title=" + URL + "&action=edit&section=1");
 		System.out.println(newUrl);
 		return newUrl;
