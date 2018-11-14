@@ -47,16 +47,17 @@ public class FormatWikitext
 			return result;
 		}
 	
-	public void charArrayToArrayList(String url) {
+		public void charArrayToArrayList(String url) {
 		char[] chars = url.toCharArray();
 		for(int i =0; i<url.length(); i++) {
 			urlTitle.add(i, chars[i]);
 			//System.out.print(chars[i]);
 		}
-		//for(int j=0; j<12;j++)
 		urlTitle.remove(0);
-		urlTitle.remove(url.length()-2);
-		urlTitle.remove(url.length()-3);
+		for(int j=url.length()-2; j>url.length()-16;j--) {
+			//System.out.print(j + " " + url.length() + "   ");
+			urlTitle.remove(j);
+		}
 		System.out.print(urlTitle);
 	}
 	
