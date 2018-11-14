@@ -42,13 +42,17 @@ public class TestPdl {
 			 
 		 }
 		 
-		 @Test
-		 public void testwiki() throws IOException {
-			 Url url = new Url("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
-			 String HTML = url.HTML();
-			 FormatWikitext test = new FormatWikitext(HTML);
-			 test = test.wikisplit();
-			 //test = test.wikisplit2();
-			 assertEquals("", test.wikitext, "");
-		 }
+		@Test
+			public void testwiki() throws IOException {
+				Url url = new Url("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
+				Url url2 = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
+				String HTML = url.HTML();
+				String HTML2 = url2.HTML();
+				FormatWikitext test = new FormatWikitext(HTML);
+				FormatWikitext test2 = new FormatWikitext(HTML2);
+				test = test.wikisplit();
+				//test = test.wikiparse();
+				System.out.println("");
+				test2 = test2.wikisplit();
+				assertEquals("", test.wikitext, "");
 	}
