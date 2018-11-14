@@ -12,6 +12,8 @@ public class FormatWikitext
 
 	
 	public String wikitext;
+	public ArrayList<Character> urlTitle = new ArrayList<Character>();
+	public String urlfinal = new String("");
 
 
 	
@@ -40,33 +42,50 @@ public class FormatWikitext
 			String[] separateur = this.wikitext.split("title");
 			FormatWikitext result = new FormatWikitext(separateur[1]);
 			//separateur[1].replaceAll("<","");
-			System.out.println("Texte à ajouter à l'URL:" + separateur[1]);
+			//System.out.println("Texte à ajouter à l'URL:" + separateur[1]);
 			//System.out.print(result);
-			charArrayToArrayList(separateur[1]);
-			
+			charArrayToString(charArrayToArrayList(separateur[1]));
 			return result;
 		}
 	
-		public void charArrayToArrayList(String url) {
+		public ArrayList<Character> charArrayToArrayList(String url) {
 		char[] chars = url.toCharArray();
 		for(int i =0; i<url.length(); i++) {
 			urlTitle.add(i, chars[i]);
-			//System.out.print(chars[i]);
 		}
 		urlTitle.remove(0);
+		//urlTitle.remove(url.length()-2);
+		//urlTitle.remove(url.length()-3);
 		for(int j=url.length()-2; j>url.length()-16;j--) {
-			//System.out.print(j + " " + url.length() + "   ");
 			urlTitle.remove(j);
 		}
 		System.out.print(urlTitle);
+		System.out.println("");
+		return urlTitle;
+	}
+		
+	public String charArrayToString(ArrayList<Character> urlTitle) {
+		for(int i =0;i<urlTitle.size();i++) {
+			urlfinal += urlTitle.get(i); 
+		}
+		System.out.println(urlfinal);
+		return urlfinal;
 	}
 	
-	/*public FormatWikitext wikisplit2() {
-		String[] separateur = this.wikitext.split("title");
-		FormatWikitext result = new FormatWikitext(separateur[0]);
-		System.out.println(separateur[0]);
+	/*public FormatWikitext wikiparse() {
+		Document doc = Jsoup.parse(this.wikitext);
+		System.out.println(doc.html());
+		FormatWikitext result = new FormatWikitext();
+		//result = result.replaceAll("<[^>]*>", "");
+		Elements rows = doc.getElementsByTag("title");
+		System.out.println("couille bleue");
+		for (Element row : rows) {
+			result.wikitext += row.text();
+			System.out.println("couille bleue");
+		}
+
 		return result;
-	}
+	}*/
 	
 	*/
 	/** Nouvel URL pour la page Wikitext
@@ -74,17 +93,12 @@ public class FormatWikitext
 	 * @return 
 	 */
 	public Url newUrl() {
-		FormatWikitext result = wikisplit();
-		Url newUrl = new Url("https://fr.wikipedia.org/w/index.php?title=" + result +"&action=edit&section=1");
+		String URL = charArrayToString(urlTitle);
+		Url newUrl = new Url("https://fr.wikipedia.org/w/index.php?title=" + URL + "&action=edit&section=1");
+		System.out.println(newUrl);
 		return newUrl;
-			
+
 	}
 	
-	public void main (String[] args) {
-		//A tester...
-		Url jeanlouis = newUrl();
-		System.out.println(jeanlouis);
-	}
-
 }
 
