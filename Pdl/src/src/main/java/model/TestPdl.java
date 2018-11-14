@@ -35,6 +35,9 @@ public class TestPdl {
 			 FormatHTML test = new FormatHTML(HTML);
 			 test = test.PremierSplit();
 			 test = test.SecondSplit();
+			 test = test.headSplit();
+			 test = test.headParse();
+			 //test = test.PremierParse();
 			 assertEquals("", test.html, "");
 			 
 		 }
