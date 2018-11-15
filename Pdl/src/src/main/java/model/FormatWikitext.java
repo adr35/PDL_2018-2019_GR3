@@ -73,6 +73,29 @@ public class FormatWikitext
 		return urlfinal;
 	}
 	
+		public FormatWikitext wikipremierSplit() {
+		//System.out.print("glou");
+		//System.out.print(wikitext);
+		String[] wikiseparateur = this.wikitext.split("\\{\\|");
+		FormatWikitext result = new FormatWikitext(wikiseparateur[1]);
+		//System.out.print(wikiseparateur[1]);
+		return result;
+	}
+	
+	public FormatWikitext wikisecondSplit() {
+		String[] wikiseparateur = this.wikitext.split("\\|}");
+		FormatWikitext result = new FormatWikitext(wikiseparateur[0]);
+		//System.out.println(wikiseparateur[0]);
+		return result;
+	}
+	
+	public FormatWikitext wikiheadSplit() {
+		String [] separateur = this.wikitext.split("! scope=col \\|");
+		FormatWikitext result = new FormatWikitext(separateur[1]);
+		System.out.println(separateur[1]);
+		return result;		
+	}
+	
 	/*	public String ArrayListtoString (ArrayList <Character> al) {
 		 StringBuilder builder = new StringBuilder(al.size());
 		    for(Character ch: al)
