@@ -46,26 +46,31 @@ public class TestPdl {
 			public void testwiki() throws IOException {
 				Url url = new Url("https://fr.wikipedia.org/w/index.php?title=Internationaux de France de tennis&action=edit");
 				Url url2 = new Url("https://fr.wikipedia.org/wiki/Internationaux_de_France_de_tennis");
-				Url url3 = new Url("");
-
 				String HTML = url.HTML();
 				String HTML2 = url2.HTML();
-				String HTML3 = url3.HTML();
+				
 				FormatWikitext test = new FormatWikitext(HTML);
 				FormatWikitext test2 = new FormatWikitext(HTML2);
+				
 				//test = test.wikisplit();
 				//test = test.wikipremierSplit();
 				//test = test.wikisecondSplit();
 				//test = test.wikiheadSplit();
 				//System.out.println("");
-				test2 = test2.wikisplit();
-				test2 = url3.ToWikitext(url2);
-				test2 = test2.wikipremierSplit();
-				//test2 = test2.wikisecondSplit();
+				test2 = test2.wikisplit();	
+				//System.out.print(test2.wikitext.toString());
+				Url url3 = new Url(test2.wikitext.toString());
+				//System.out.print(url3.url.toString());
+				String HTML3 = url3.HTML();
+				//System.out.print(HTML3);
+				FormatWikitext test3 = new FormatWikitext(HTML3);
+				test3 = test3.wikipremierSplit();
+				//test2 = test2.wikisecondSplit()
 				//test2 = test2.wikiheadSplit();
 				//test2= test.wikiheadParse();
 				assertEquals("", test2.wikitext, "");
 }
+		
 		
 	
 			@Test
