@@ -43,9 +43,10 @@ public class FormatWikitext
 			FormatWikitext result = new FormatWikitext(separateur[1]);
 			//separateur[1].replaceAll("<","");
 			//System.out.println("Texte à ajouter à l'URL:" + separateur[1]);
-			//System.out.print(result);
-			ArrayListToString(charArrayToArrayList(separateur[1]));
-			newUrl();
+			
+			result = newUrl(ArrayListToString(charArrayToArrayList(separateur[1])));
+			System.out.println(result.wikitext.toString());
+			//result = newUrl();
 			return result;
 		}
 	
@@ -60,7 +61,7 @@ public class FormatWikitext
 		for(int j=url.length()-2; j>url.length()-16;j--) {
 			urlTitle.remove(j);
 		}
-		System.out.print(urlTitle);
+		//System.out.print(urlTitle);
 		System.out.println("");
 		return urlTitle;
 	}
@@ -73,12 +74,14 @@ public class FormatWikitext
 		return urlfinal;
 	}
 	
-		public FormatWikitext wikipremierSplit() {
+	
+	
+	public FormatWikitext wikipremierSplit() {
 		//System.out.print("glou");
 		//System.out.print(wikitext);
 		String[] wikiseparateur = this.wikitext.split("\\{\\|");
 		FormatWikitext result = new FormatWikitext(wikiseparateur[1]);
-		//System.out.print(wikiseparateur[1]);
+		System.out.print(wikiseparateur[1]);
 		return result;
 	}
 	
@@ -94,6 +97,23 @@ public class FormatWikitext
 		FormatWikitext result = new FormatWikitext(separateur[1]);
 		System.out.println(separateur[1]);
 		return result;		
+	}
+	
+public FormatWikitext wikiheadParse() {
+		
+		Document doc = Jsoup.parse(this.wikitext);
+		System.out.println(doc.html());
+		FormatWikitext result = new FormatWikitext();
+		Elements rows = doc.getAllElements();
+		for (Element row : rows ) {
+			
+			
+			//result.html += row.text();
+			System.out.println(row.text());
+
+		}
+		result.wikitext = doc.html();
+		return result;	
 	}
 	
 	/*	public String ArrayListtoString (ArrayList <Character> al) {
@@ -117,21 +137,23 @@ public class FormatWikitext
 			result.wikitext += row.text();
 			System.out.println("couille bleue");
 		}
-
 		return result;
 	}*/
 	
-	*/
+	
 	/** Nouvel URL pour la page Wikitext
 	 * 
 	 * @return 
 	 */
-	public String newUrl() {
-		String newUrl = new String("https://fr.wikipedia.org/w/index.php?title=" + urlfinal + "&action=edit&section=1");
-		System.out.println(newUrl);
+	public FormatWikitext newUrl(String url) {
+		url = urlfinal;
+		FormatWikitext newUrl = new FormatWikitext("https://fr.wikipedia.org/w/index.php?title=" + url + "&action=edit");
+		//System.out.println(newUrl);
+		//System.out.print(wikitext);
 		return newUrl;
 
 	}
 	
 }
+
 
