@@ -68,18 +68,22 @@ public class TestPdl {
 }
 		
 	
-		@Test 
-		 	public void testFichier() {
-			 	Url url = new Url("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
-			 	Url url2 = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
-			 	String newUrl = new String("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
-			 	String newUrl2 = new String("https://fr.wikipedia.org/wiki/Coupe du monde de football");
-			 	Fichier fichier = new Fichier();
-			 	fichier.addString(newUrl);
-				 fichier.addString(newUrl2);			 
-			 	//fichier = fichier.addString(newUrl2);
-			 	//fichier = fichier.addUrl(url2);
-				 System.out.println(fichier.toString());
-			 	//System.out.println(url2);
-			 
-		 }
+			@Test
+	public void testFichier() {
+		Url url = new Url("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
+		Url url2 = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
+		//Url url3 = new Url("https://fr.wikipedia.org/wiki/Internationaux_de_France_de_tennis_2018");
+		//String newUrl = new String("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
+		//String newUrl2 = new String("https://fr.wikipedia.org/wiki/Coupe du monde de football");
+		Fichier fichier = new Fichier();
+		boolean assert1 = fichier.addUrl(url);
+		boolean assert2 = fichier.addUrl(url2);
+		//boolean assert3 = fichier.addUrl(url3);
+		// fichier = fichier.addString(newUrl2);
+		// fichier = fichier.addUrl(url2);
+		System.out.println(fichier.toString());
+		assertTrue("Url ajouté", assert1);
+		assertTrue("Url2 ajouté", assert2);
+		//assertTrue("Url3 ajouté", assert3);
+		
+	}
