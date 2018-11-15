@@ -51,11 +51,13 @@ public class Fichier extends Url {
 
 	@Override
 	public String toString() {
-		String result = "Fichier :" + "\n" + "[" + "\n";
+		String result = "[~~~~~~~~~~~~~~~~~~~~~~~~~~~Fichier~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\n";
+		int count = 1;
 		for (Url url : this.setUrl) {
-			result += url.url + "\n";
+			result += count + "--> " + url.url + "\n";
+			count++;
 		}
-		result += "]";
+		result += "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]";
 		return result;
 	}
 
