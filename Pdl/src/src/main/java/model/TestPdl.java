@@ -55,4 +55,20 @@ public class TestPdl {
 				System.out.println("");
 				test2 = test2.wikisplit();
 				assertEquals("", test.wikitext, "");
-	}
+		}
+	
+		@Test 
+		 	public void testFichier() {
+			 	Url url = new Url("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
+			 	Url url2 = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
+			 	String newUrl = new String("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
+			 	String newUrl2 = new String("https://fr.wikipedia.org/wiki/Coupe du monde de football");
+			 	Fichier fichier = new Fichier();
+			 	fichier.addString(newUrl);
+				 fichier.addString(newUrl2);			 
+			 	//fichier = fichier.addString(newUrl2);
+			 	//fichier = fichier.addUrl(url2);
+				 System.out.println(fichier.toString());
+			 	//System.out.println(url2);
+			 
+		 }
