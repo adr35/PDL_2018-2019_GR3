@@ -92,27 +92,52 @@ public class FormatWikitext
 		return result;
 	}
 	
-	public FormatWikitext wikiheadSplit() {
-		String [] separateur = this.wikitext.split("! scope=col \\|");
-		FormatWikitext result = new FormatWikitext(separateur[1]);
-		System.out.println(separateur[1]);
+	public FormatWikitext wikiHeadSplit() {
+		//System.out.println("headsplit");
+		//String [] separateur = this.wikitext.split("! scope=col \\|");
+		FormatWikitext result = new FormatWikitext(Arrays.toString(wikiHeadSplitTab()));
+		//System.out.println(result.wikitext.toString());
 		return result;		
 	}
 	
-public FormatWikitext wikiheadParse() {
-		
-		Document doc = Jsoup.parse(this.wikitext);
-		System.out.println(doc.html());
+	public String[] wikiHeadSplitTab() {
+		//System.out.println("headsplittab");
+		int nbcol = wikiNombreColonne();
+		String[] separateur = this.wikitext.split("! scope=col \\|");
+		String[] result = new String[nbcol];
+		for(int i=0;i<nbcol;i++) {
+			result[i] = separateur[i];
+			//System.out.println(result[i]);
+		}
+		//System.out.println(Arrays.toString(result));
+		return result;
+	}
+	
+	public int wikiNombreColonne() {
+		//System.out.println("nbcolonne");
+		//FormatWikitext clone = this.wikitext;
+		int result = 0;
+		String[] nbcol = this.wikitext.split("! scope=col \\|");
+		result = nbcol.length ;
+		//System.out.println(result);
+		return result;
+	}
+	
+	public FormatWikitext wikiHeadParse() {
+		FormatWikitext wikitext = wikiHeadSplit();
+		Document doc = Jsoup.parse(wikitext.wikitext);
+		//System.out.println(doc.html());
 		FormatWikitext result = new FormatWikitext();
 		Elements rows = doc.getAllElements();
-		for (Element row : rows ) {
-			
-			
-			//result.html += row.text();
-			System.out.println(row.text());
-
+		
+		/*for (Element row : rows ) {
+			result.html += row.text();
+			//System.out.println(row.text());
 		}
-		result.wikitext = doc.html();
+		result.html = doc.html();*/
+		Element row = rows.first();
+		result.wikitext = row.text();
+		//System.out.println(result.html);
 		return result;	
 	}
 	
