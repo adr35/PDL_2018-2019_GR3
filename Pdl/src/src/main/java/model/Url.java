@@ -31,6 +31,26 @@ public class Url
 		this.url = url;
 	}
 
+		// A modifier....
+	public boolean isValidURL(String newUrl) {
+
+		Url url = null;
+
+		try {
+			url = new Url(newUrl);
+		} catch (MalformedURLException e) {
+			return false;
+		}
+
+		try {
+			url.ToWikitext(newUrl);
+		} catch (URISyntaxException e) {
+			return false;
+		}
+
+		return true;
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * Renvoie le code HTML de l'url contenant le wikitext
