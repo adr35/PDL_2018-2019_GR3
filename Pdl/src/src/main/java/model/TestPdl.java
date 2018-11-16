@@ -64,6 +64,9 @@ public class TestPdl {
 				String HTML3 = url3.HTML();
 				//System.out.print(HTML3);
 				FormatWikitext test3 = new FormatWikitext(HTML3);
+				int nbtabs = test3.wikicounttabs();
+				System.out.println("Nombre de tableaux présents sur la page : " + nbtabs);
+				System.out.println("\n");
 				test3 = test3.wikipremierSplit();
 				//System.out.print(test3.wikitext.toString());
 				test3 = test3.wikisecondSplit();
