@@ -23,7 +23,6 @@ public class FormatHTML
 	
 	
 	public String html;
-	
 	private String keep;
 	private int nbtab;
 	
@@ -147,6 +146,36 @@ public class FormatHTML
 		}
 		ProductionCSV csvhead = new ProductionCSV(head);
 		return csvhead;
+	}
+	
+	public FormatHTML BodySplit() {
+		FormatHTML html = SecondSplit();
+		String[] separateur = html.html.split("<tr>");
+		String st ="";
+		FormatHTML result = new FormatHTML(st);
+		FormatHTML result1 = new FormatHTML();
+		for(int i = 2; i< separateur.length; i++) {
+			st = separateur[i];
+			result = new FormatHTML(st);
+			Document doc = Jsoup.parse(result.html);
+			Elements rows = doc.getAllElements();
+			Element row = rows.first();
+			result1.html +=  row.text() + "\n";
+		}
+		System.out.print(result1.html);
+		return result1;
+	}
+	
+	public FormatHTML BodyParse() {
+		FormatHTML html = BodySplit();
+		Document doc = Jsoup.parse(html.html);
+		//System.out.println(doc.html());
+		FormatHTML result = new FormatHTML();
+		Elements rows = doc.getAllElements();
+		Element row = rows.first();
+		result.html = row.text();
+		System.out.println(result.html);
+		return result;	
 	}
 	
 
