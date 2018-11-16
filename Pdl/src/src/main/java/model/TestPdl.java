@@ -65,12 +65,16 @@ public class TestPdl {
 				//System.out.print(HTML3);
 				FormatWikitext test3 = new FormatWikitext(HTML3);
 				test3 = test3.wikipremierSplit();
-				//test2 = test2.wikisecondSplit()
-				//test2 = test2.wikiheadSplit();
+				//System.out.print(test3.wikitext.toString());
+				test3 = test3.wikisecondSplit();
+				//System.out.print(test3.wikitext.toString());
+				test3 = test3.wikiHeadSplit();
+				//System.out.print(test3.wikitext.toString());
+				test3 = test3.wikiHeadParse();
+				System.out.print(test3.wikitext.toString());
 				//test2= test.wikiheadParse();
 				assertEquals("", test2.wikitext, "");
 }
-		
 		
 	
 			@Test
