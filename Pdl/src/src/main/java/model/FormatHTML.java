@@ -46,9 +46,12 @@ public class FormatHTML
 	 * @ordered
 	 */
 	
-	public ProductionCSV ToCSV(FormatHTML htmlFormat) {
-		// TODO implement me
-		return null;
+	public ProductionCSV ToCSV() {
+		ProductionCSV head = headToCSV();
+		ProductionCSV body = BodyToCSV();
+		ProductionCSV prod = new ProductionCSV(head.csv + "\n"+ body.csv);
+		System.out.print(prod.csv);
+		return prod;
 	}
 	
 	
@@ -62,15 +65,8 @@ public class FormatHTML
 		keep = this.html;
 		FormatHTML clone = clone();
 		String[] separateur = clone.html.split("table class=\"wikitable");
-		/*ArrayList<String> pageWikitable = new ArrayList<String>();
-		    for(String clear : pageWikitable) {
-		        if (clear.startsWith("wikitable")) {
-		            pageWikitable.add(clear);
-		    }
-		}*/
 		nbtab = separateur.length -1;
 		FormatHTML result = new FormatHTML(separateur[1]);
-		//System.out.println(separateur[1]);
 		return result;
 	}
 	
@@ -78,17 +74,7 @@ public class FormatHTML
 		FormatHTML html = PremierSplit();
 		String[] separateur = html.html.split("</tbody>");
 		FormatHTML result = new FormatHTML(separateur[0]);
-		//System.out.println(separateur[0]);
 		return result;
-	}
-	
-	
-	public FormatHTML headSplit() {
-		FormatHTML html = SecondSplit();
-		String [] separateur = html.html.split("<tr>");
-		FormatHTML result = new FormatHTML(separateur[1]);
-		//System.out.println(separateur[1]);
-		return result;		
 	}
 	
 	public int NombreCol() {
@@ -100,52 +86,33 @@ public class FormatHTML
 	}
 	
 	
+	public FormatHTML headSplit() {
+		FormatHTML html = SecondSplit();
+		String [] separateur = html.html.split("<tr>");
+		FormatHTML result = new FormatHTML(separateur[1]);
+		return result;		
+	}
+	
+	
 	public FormatHTML headParse() {
 		FormatHTML html = headSplit();
-		Document doc = Jsoup.parse(html.html);
-		//System.out.println(doc.html());
-		FormatHTML result = new FormatHTML();
+		String replaceString=html.html.replaceAll("<th scope=\"col\">","<th scope=\"col\">DEBUTDECASE ");
+		FormatHTML result = new FormatHTML(replaceString);
+		Document doc = Jsoup.parse(result.html);
 		Elements rows = doc.getAllElements();
-		
-		/*for (Element row : rows ) {
-			result.html += row.text();
-			//System.out.println(row.text());
-
-		}
-		result.html = doc.html();*/
 		Element row = rows.first();
-		result.html = row.text();
-		//System.out.println(result.html);
+		String line = row.text();
+		String replaceline = line.replaceFirst("DEBUTDECASE ", "");
+		result.html =  replaceline;
 		return result;	
 	}
 	
 	public ProductionCSV headToCSV() {
-		int nbcol = NombreCol();
-		FormatHTML result = headParse();
-		String head = "";
-		int i = 0;
-		String[] test = result.html.split(" ");
-	for(String st : test) {
-			Pattern p = Pattern.compile("\\p{Upper}", Pattern.CASE_INSENSITIVE|Pattern.UNICODE_CASE);
-			Pattern p1 = Pattern.compile("\\p{Digit}", Pattern.CASE_INSENSITIVE|Pattern.UNICODE_CASE);
-			Pattern p2 = Pattern.compile("\\p{Punct}", Pattern.CASE_INSENSITIVE|Pattern.UNICODE_CASE);
-			if(i == 0) {
-				head += st;
-				i++;
-			}
-			else if(p2.matcher(st).find()){
-				head += " " + st;
-			}
-				
-			else if(p.matcher(st).find() || p1.matcher(st).find()) {
-				head += ("," + st);
-			}
-			else {
-				head += " " + st;
-			}
-		}
-		ProductionCSV csvhead = new ProductionCSV(head);
-		return csvhead;
+		FormatHTML html = headParse();
+		String result = html.html.replaceAll(" DEBUTDECASE", ", ");
+		String verif = result.replaceAll("  ", " ");
+		ProductionCSV prod  = new ProductionCSV(verif);
+		return prod;
 	}
 	
 	public FormatHTML BodySplit() {
@@ -156,26 +123,26 @@ public class FormatHTML
 		FormatHTML result1 = new FormatHTML();
 		for(int i = 2; i< separateur.length; i++) {
 			st = separateur[i];
-			result = new FormatHTML(st);
+	
+			String replaceString=st.replaceAll("<td>","<td>DEBUTDECASE ");
+		
+			result = new FormatHTML(replaceString);
 			Document doc = Jsoup.parse(result.html);
 			Elements rows = doc.getAllElements();
 			Element row = rows.first();
-			result1.html +=  row.text() + "\n";
+			String line = row.text();
+			String replaceline = line.replaceFirst("DEBUTDECASE ", "");
+			result1.html +=  replaceline + "\n";
 		}
-		System.out.print(result1.html);
 		return result1;
 	}
 	
-	public FormatHTML BodyParse() {
+	public ProductionCSV BodyToCSV() {
 		FormatHTML html = BodySplit();
-		Document doc = Jsoup.parse(html.html);
-		//System.out.println(doc.html());
-		FormatHTML result = new FormatHTML();
-		Elements rows = doc.getAllElements();
-		Element row = rows.first();
-		result.html = row.text();
-		System.out.println(result.html);
-		return result;	
+		String result = html.html.replaceAll(" DEBUTDECASE", ", ");
+		String verif = result.replaceAll("  ", " ");
+		ProductionCSV prod  = new ProductionCSV(verif);
+		return prod;
 	}
 	
 
@@ -188,7 +155,6 @@ public class FormatHTML
 
 		
 		Document doc = Jsoup.parse(this.html);
-		//System.out.println(doc.html());
 		FormatHTML result = new FormatHTML();
 		Elements rows = doc.getElementsByTag("a");
 		for(Element row : rows) {
@@ -198,11 +164,6 @@ public class FormatHTML
 			
 			writer.write(row.text().concat(", "));
 			writer.write("\n");
-			for(Element cell : cells) {
-				
-				//System.out.println(cell.text());
-				
-			}
 		}
 		result.html = doc.html();
 		writer.close();
