@@ -74,6 +74,14 @@ public class FormatWikitext
 		return urlfinal;
 	}
 	
+	public int wikicounttabs() {
+	    Matcher matcher = Pattern.compile("wikitable").matcher(wikitext);
+	    int occur = 0;
+	    while(matcher.find()) {
+	        occur ++;
+	    }
+	    return occur;
+	}
 	
 	
 	public FormatWikitext wikipremierSplit() {
