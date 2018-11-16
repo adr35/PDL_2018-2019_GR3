@@ -100,6 +100,36 @@ public class FormatWikitext
 		return result;
 	}
 	
+	public String[] wikiTabAllTabs() {
+		FormatWikitext premiersplit = wikiPremierSplit();
+		FormatWikitext secondsplit = wikiSecondSplit();
+		String[] tab1 = premiersplit.wikitext.split("\\s+");
+		String[] tab2 = secondsplit.wikitext.split("\\s+");
+		ArrayList <String> tabfinal = new ArrayList<String>();
+		String[] tableaufinal = new String[tabfinal.size()];
+		int i=1; 
+		int j=1;
+		int k=0;
+		//System.out.print(tab1[1] + " ++ " + tab2[9594]);
+		while(!tab1[i].equals(tab2[j])) {
+			//System.out.println(j);
+			j++;
+		}
+		//System.out.print(tab1[i+1] + " "+i +" " + " ++ " + tab2[j+1] + "  " + j);
+		while((tab1[i].equals(tab2[j])) && (j != tab2.length-1) ) {
+			tabfinal.add(tab1[i]);
+			//System.out.println(j);
+			i++;j++;k++;
+		}
+		tableaufinal = tabfinal.toArray(tableaufinal);
+		return tableaufinal;
+	}
+	
+	public FormatWikitext wikiAllTabs() {
+		FormatWikitext result = new FormatWikitext(Arrays.toString(wikiTabAllTabs()));
+		return result;
+	}
+	
 	public FormatWikitext wikiHeadSplit() {
 		//System.out.println("headsplit");
 		//String [] separateur = this.wikitext.split("! scope=col \\|");
