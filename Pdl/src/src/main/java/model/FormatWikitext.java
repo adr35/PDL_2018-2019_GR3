@@ -152,6 +152,22 @@ public class FormatWikitext
 		return result;
 	}
 	
+		public FormatWikitext splitTab() {
+		FormatWikitext result = new FormatWikitext();
+		String[]separateur = this.wikitext.split("\\|\\-");
+		String[]tabfinal = new String[separateur.length];
+		ArrayList<String> list = new ArrayList<String>();
+		for(int i=0; i<separateur.length;i++) {
+			list.add(separateur[i]);
+		}
+		tabfinal = list.toArray(tabfinal);
+		for(int i=0; i<separateur.length;i++) {
+			System.out.println(tabfinal[i]);
+		}
+		result.wikitext = Arrays.toString(tabfinal);
+		return result;
+	}
+	
 	public int wikiNombreColonne() {
 		//System.out.println("nbcolonne");
 		//FormatWikitext clone = this.wikitext;
