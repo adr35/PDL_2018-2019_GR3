@@ -195,21 +195,20 @@ public class FormatWikitext
 		return result;
 	}
 	
-	public FormatWikitext wikiRowSplit() {
+	public String[] wikiRowSplit() {
 		int nbligne = wikiNombreLigne();
-		FormatWikitext result = new FormatWikitext();
+		//FormatWikitext result = new FormatWikitext();
 		String[] separateur = this.wikitext.split("! scope\\=row \\|");
 		String[] tab = new String[nbligne];
 		for(int i =0; i<nbligne;i++) {
 			tab[i] = separateur[i+1];
 			//System.out.println(tab[i]);
 		}
-		result.wikitext = Arrays.toString(tab);
-		return result;
+		return tab;
 	}
 	
-	/*/public FormatWikitext wikiRowSecondSplit() {
-		int nbelems = 
+	/*public FormatWikitext wikiRowSecondSplit() {
+		
 	}*/
 	
 	
@@ -232,7 +231,7 @@ public class FormatWikitext
 		return result;	
 	}
 	
-	public FormatWikitext wikiRowParse() {
+	/*public FormatWikitext wikiRowParse() {
 		FormatWikitext wikirow = wikiRowSplit();
 		//System.out.println(wikirow.wikitext.toString());
 		Document doc = Jsoup.parse(wikirow.wikitext);
@@ -247,7 +246,7 @@ public class FormatWikitext
 		Element column = columns.first();
 		result.wikitext = column.text();
 		return result;	 
-	}
+	}*/
 	
 	public FormatWikitext wikiSplitHeadParse(){
 		String[] separateur = this.wikitext.split("\\|-");
