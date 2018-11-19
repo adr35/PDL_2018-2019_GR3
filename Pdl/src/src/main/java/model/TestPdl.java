@@ -1,5 +1,4 @@
 package src.main.java.model;
-
 import static org.junit.Assert.*;
 
 import java.io.IOException;
@@ -28,24 +27,24 @@ public class TestPdl {
 
 	 
 		
-		 @Test
-			public void testUrl() throws IOException {
-			 Url url = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
-			 String HTML = url.HTML();
-			 FormatHTML test = new FormatHTML(HTML);
-			 test = test.PremierSplit();
-			 test = test.SecondSplit();
-			 test = test.headSplit();
-			 test = test.headParse();
-			 //test = test.PremierParse();
-			 assertEquals("", test.html, "");
-			 
-		 }
+	@Test
+	public void testUrl() throws IOException {
+	 Url url = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
+	 String HTML = url.HTML();
+	 FormatHTML test = new FormatHTML(HTML);
+	 test = test.PremierSplit();
+	 test = test.SecondSplit();
+	 test = test.headSplit();
+	 test = test.headParse();
+	 //test = test.PremierParse();
+	 assertEquals("", test.html, "");
+	 
+}
 		 
 		@Test
 			public void testwiki() throws IOException {
 				Url url = new Url("https://fr.wikipedia.org/w/index.php?title=Internationaux de France de tennis&action=edit");
-				Url url2 = new Url("https://fr.wikipedia.org/wiki/Internationaux_de_France_de_tennis");
+				Url url2 = new Url("https://fr.wikipedia.org/wiki/Internationaux de France de tennis");
 				String HTML = url.HTML();
 				String HTML2 = url2.HTML();
 				
@@ -64,20 +63,19 @@ public class TestPdl {
 				String HTML3 = url3.HTML();
 				//System.out.print(HTML3);
 				FormatWikitext test3 = new FormatWikitext(HTML3);
-				int nbtabs = test3.wikicounttabs();
-				System.out.println("Nombre de tableaux présents sur la page : " + nbtabs);
-				System.out.println("\n");
 				//test3 = test3.wikiPremierSplit();
 				//System.out.print(test3.wikitext.toString());
 				//test3 = test3.wikiSecondSplit();
 				//System.out.print(test3.wikitext.toString());
 				test3 = test3.wikiFirstTab();
 				System.out.println("Tableau entier : ");
-				System.out.println(test3.wikitext.toString());
-				//test3 = test3.wikiHeadSplit(); //mettre en commentaire si wikiHeadParse() activé
 				//System.out.println(test3.wikitext.toString());
-				//test3 = test3.wikiHeadParse();
+				test3 = test3.printsplitTab();
+				System.out.println(test3.wikitext.toString());
 				System.out.println("Head : ");
+				test3 = test3.wikiHeadSplit(); //mettre en commentaire si wikiHeadParse() activé
+				System.out.println(test3.wikitext.toString());
+				//test3 = test3.wikiHeadParse();
 				//System.out.println(test3.wikitext.toString());
 				//test3 = test3.wikiSplitHeadParse();
 				//System.out.println(test3.wikitext.toString());
@@ -85,31 +83,27 @@ public class TestPdl {
 				//test3 = test3.wikiRowSplit(); //mettre en commentaire si wikiRowParse() activé
 				System.out.println("Lignes : ");
 				//System.out.println(test3.wikitext.toString());
-				test3 = test3.wikiRowParse();
-				System.out.println(test3.wikitext.toString());
-				test3 = test3.wikiSplitRowParse();
-				System.out.println(test3.wikitext.toString());
+				//test3 = test3.afficheWikiRowSplit();
+				//System.out.println(test3.wikitext.toString());
+				//test3 = test3.wikiSplitRowParse();
+				//System.out.println(test3.wikitext.toString());
 				assertEquals("", test2.wikitext, "");
 }
 		
+		/*@Test 
+	 	public void testFichier() {
+		 	Url url = new Url("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
+		 	Url url2 = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
+		 	String newUrl = new String("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
+		 	String newUrl2 = new String("https://fr.wikipedia.org/wiki/Coupe du monde de football");
+		 	Fichier fichier = new Fichier();
+		 	fichier.addString(newUrl);
+			 fichier.addString(newUrl2);			 
+		 	//fichier = fichier.addString(newUrl2);
+		 	//fichier = fichier.addUrl(url2);
+			 System.out.println(fichier.toString());
+		 	//System.out.println(url2);
+		 
+}*/
 		
-	
-			@Test
-	public void testFichier() {
-		Url url = new Url("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
-		Url url2 = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
-		//Url url3 = new Url("https://fr.wikipedia.org/wiki/Internationaux_de_France_de_tennis_2018");
-		//String newUrl = new String("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
-		//String newUrl2 = new String("https://fr.wikipedia.org/wiki/Coupe du monde de football");
-		Fichier fichier = new Fichier();
-		boolean assert1 = fichier.addUrl(url);
-		boolean assert2 = fichier.addUrl(url2);
-		//boolean assert3 = fichier.addUrl(url3);
-		// fichier = fichier.addString(newUrl2);
-		// fichier = fichier.addUrl(url2);
-		System.out.println(fichier.toString());
-		assertTrue("Url ajouté", assert1);
-		assertTrue("Url2 ajouté", assert2);
-		//assertTrue("Url3 ajouté", assert3);
-		
-	}
+}
