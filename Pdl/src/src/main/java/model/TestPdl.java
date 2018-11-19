@@ -69,16 +69,26 @@ public class TestPdl {
 				//test3 = test3.wikiSecondSplit();
 				//System.out.print(test3.wikitext.toString());
 				test3 = test3.wikiFirstTab();
-				System.out.print(test3.wikitext.toString());
-				test3 = test3.wikiHeadSplit(); //mettre en commentaire si wikiHeadParse() activé
-				//System.out.print(test3.wikitext.toString());
-				test3 = test3.wikiHeadParse();
-				//System.out.print(test3.wikitext.toString());
-				test3 = test3.wikiSplitsurParse();
-				//System.out.print(test3.wikitext.toString());
+				System.out.println("Tableau entier : ");
+				System.out.println(test3.wikitext.toString());
+				//test3 = test3.wikiHeadSplit(); //mettre en commentaire si wikiHeadParse() activé
+				//System.out.println(test3.wikitext.toString());
+				//test3 = test3.wikiHeadParse();
+				System.out.println("Head : ");
+				//System.out.println(test3.wikitext.toString());
+				//test3 = test3.wikiSplitHeadParse();
+				//System.out.println(test3.wikitext.toString());
 				//test2= test.wikiheadParse();
+				//test3 = test3.wikiRowSplit(); //mettre en commentaire si wikiRowParse() activé
+				System.out.println("Lignes : ");
+				//System.out.println(test3.wikitext.toString());
+				test3 = test3.wikiRowParse();
+				System.out.println(test3.wikitext.toString());
+				test3 = test3.wikiSplitRowParse();
+				System.out.println(test3.wikitext.toString());
 				assertEquals("", test2.wikitext, "");
 }
+		
 		
 	
 			@Test
