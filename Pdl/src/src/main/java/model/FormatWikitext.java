@@ -1,10 +1,8 @@
 package src.main.java.model;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +10,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.platform.commons.util.StringUtils;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -205,6 +203,13 @@ public class FormatWikitext
 			//System.out.println(tab[i]);
 		}
 		return tab;
+	}
+	
+	public FormatWikitext afficheWikiRowSplit() {
+		FormatWikitext result = new FormatWikitext();
+		String[]tab = wikiRowSplit();
+		result.wikitext = Arrays.toString(tab);
+		return result;
 	}
 	
 	/*public FormatWikitext wikiRowSecondSplit() {
