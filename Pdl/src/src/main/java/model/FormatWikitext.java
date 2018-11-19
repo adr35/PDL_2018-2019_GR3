@@ -152,8 +152,7 @@ public class FormatWikitext
 		return result;
 	}
 	
-		public FormatWikitext splitTab() {
-		FormatWikitext result = new FormatWikitext();
+	public String[] splitTab() {
 		String[]separateur = this.wikitext.split("\\|\\-");
 		String[]tabfinal = new String[separateur.length];
 		ArrayList<String> list = new ArrayList<String>();
@@ -164,15 +163,36 @@ public class FormatWikitext
 		for(int i=0; i<separateur.length;i++) {
 			System.out.println(tabfinal[i]);
 		}
-		result.wikitext = Arrays.toString(tabfinal);
+		return tabfinal;
+	}
+	
+	public FormatWikitext printsplitTab() {
+		FormatWikitext result = new FormatWikitext();
+		String[] tab = splitTab();
+		result.wikitext = Arrays.toString(tab);
 		return result;
 	}
+	
+	public FormatWikitext wikiHeadSplit() {
+		FormatWikitext result = new FormatWikitext();
+		//System.out.println("headsplittab");
+		int nbcol = wikiNombreColonne();
+		String[] separateur = this.wikitext.split("\\|");
+		String[] tab = new String[nbcol];
+		for(int i=0;i<nbcol-1;i++) {
+			tab[i] = separateur[i+1];
+			System.out.println(tab[i]);
+		}
+		result.wikitext = Arrays.toString(tab);
+		return result;
+	}
+	
 	
 	public int wikiNombreColonne() {
 		//System.out.println("nbcolonne");
 		//FormatWikitext clone = this.wikitext;
 		int result = 0;
-		String[] nbcol = this.wikitext.split("! scope\\=col \\|");
+		String[] nbcol = this.wikitext.split("\\|");
 		result = nbcol.length-1 ;
 		//System.out.println(result);
 		return result;
@@ -195,42 +215,16 @@ public class FormatWikitext
 	
 	
 	
-	public FormatWikitext wikiHeadSplit() {
-		FormatWikitext result = new FormatWikitext();
-		//System.out.println("headsplittab");
-		int nbcol = wikiNombreColonne();
-		String[] separateur = this.wikitext.split("! scope\\=col \\|");
-		String[] tab = new String[nbcol];
-		for(int i=0;i<nbcol-1;i++) {
-			tab[i] = separateur[i+1];
-			//System.out.println(result[i]);
-		}
-		result.wikitext = Arrays.toString(tab);
-		return result;
-	}
 	
-	public String[] wikiRowSplit() {
-		int nbligne = wikiNombreLigne();
-		//FormatWikitext result = new FormatWikitext();
-		String[] separateur = this.wikitext.split("! scope\\=row \\|");
-		String[] tab = new String[nbligne];
-		for(int i =0; i<nbligne;i++) {
-			tab[i] = separateur[i+1];
-			//System.out.println(tab[i]);
-		}
-		return tab;
-	}
 	
-	public FormatWikitext afficheWikiRowSplit() {
+	
+	/*public FormatWikitext afficheWikiRowSplit() {
 		FormatWikitext result = new FormatWikitext();
 		String[]tab = wikiRowSplit();
 		result.wikitext = Arrays.toString(tab);
 		return result;
-	}
-	
-	/*public FormatWikitext wikiRowSecondSplit() {
-		
 	}*/
+	
 	
 	
 	public FormatWikitext wikiHeadParse() {
@@ -275,12 +269,27 @@ public class FormatWikitext
 		return result;
 	}
 	
-	public FormatWikitext wikiSplitRowParse() {
-		String[] separateur = this.wikitext.split("\\|");
-		FormatWikitext result = new FormatWikitext(separateur[0]);
-		return result;
+	
+	public String[] wikiRowPremierSplit() {
+		int nbligne = wikiNombreLigne();
+		//FormatWikitext result = new FormatWikitext();
+		String[] separateur = this.wikitext.split("! scope\\=row \\|");
+		String[] tab = new String[nbligne];
+		for(int i =0; i<nbligne;i++) {
+			tab[i] = separateur[i+1];
+			System.out.println(tab[i]);
+		}
+		return tab;
 	}
-
+/*
+	public String[] wikiRowTitle() {
+		String[] tab = wikiRowPremierSplit();
+		tab = this.wikitext.split("\\|");
+		String[] result = new String[tab.length];
+		for(int i=0; i<tab.length;i++) {
+			result[i] = separateur[0];
+		}
+	}*/
 	
 	
 
