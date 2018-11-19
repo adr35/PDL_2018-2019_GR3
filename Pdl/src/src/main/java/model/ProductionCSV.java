@@ -27,6 +27,29 @@ public class ProductionCSV
 	 * @generated
 	 * @ordered
 	 */
+		public void Production (FormatHTML html) throws IOException
+	{
+		 try {
+		FileWriter writer = new FileWriter("File_Name.csv");
+		writer.write("TEST,TEST,TEST");
+		writer.close();
+		 }
+		 catch (IOException e) {
+		        e.getStackTrace();
+		 
+		 }
+		//Production du fichier CSV à partir du format HTML
+		
+	}
+	
+	
+	public void Production (FormatWikitext wiki)
+	{
+		
+		//Production du fichier CSV à partir du format Wikitext
+		
+		
+	}
 	
 	public String ShowCSV(ProductionCSV csvProduction) {
 		// TODO implement me
