@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Semaphore;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,6 +27,7 @@ public class FormatHTML
 	public String html;
 	private String keep;
 	private int nbtab;
+	private int tabCourant;
 	
 	public FormatHTML(){
 		this.html = new String();
@@ -47,27 +50,28 @@ public class FormatHTML
 	 */
 	
 	public ProductionCSV ToCSV() {
-		ProductionCSV head = headToCSV();
-		ProductionCSV body = BodyToCSV();
-		ProductionCSV prod = new ProductionCSV(head.csv + "\n"+ body.csv);
-		System.out.print(prod.csv);
+		String result = "";
+		FormatHTML clone = clone();
+		String[] separateur = clone.html.split("table class=\"wikitable");
+		nbtab = separateur.length -1;
+		for(int i = 0; i< nbtab; i++){
+			tabCourant = i +1;
+			ProductionCSV head = headToCSV();
+			ProductionCSV body = BodyToCSV();
+			result += (head.csv + "\n" +body.csv +"\n\n\n");
+		}
+		ProductionCSV prod = new ProductionCSV(result);
+		System.out.println(prod.csv);
 		return prod;
 	}
-	
-	
-	//remplace le return par un String tab[] on aura tout les tableaux de la page
-	
-	/*dÃ©but : wikitable
-	 * fin : Ã  modifier
-	 */
 	
 	public FormatHTML PremierSplit() {
 		keep = this.html;
 		FormatHTML clone = clone();
 		String[] separateur = clone.html.split("table class=\"wikitable");
-		nbtab = separateur.length -1;
-		FormatHTML result = new FormatHTML(separateur[1]);
+		FormatHTML result = new FormatHTML(separateur[tabCourant]);
 		return result;
+		
 	}
 	
 	public FormatHTML SecondSplit() {
@@ -124,23 +128,34 @@ public class FormatHTML
 		FormatHTML result1 = new FormatHTML();
 		for(int i = 2; i< separateur.length; i++) {
 			st = separateur[i];
-	
-			String replaceString=st.replaceAll("<td>","<td>DEBUTDECASE ");
-		
-			result = new FormatHTML(replaceString);
+			String replaceString=st.replaceAll("<td[^>]*>","<td>DEBUTDECASE ");
+			//System.out.println(replaceString);
+			String regex = "<img ";
+			String replaceStringImg = replaceString;
+			if(replaceString.contains(regex)) {
+				replaceStringImg = replaceString.replace("<img", "DEBUTIMAGE <img ");
+			}
+			result = new FormatHTML(replaceStringImg);
 			Document doc = Jsoup.parse(result.html);
 			Elements rows = doc.getAllElements();
 			Element row = rows.first();
+			Elements im = doc.select("img");
+			List<String> listIm= im.eachAttr("src");
 			String line = row.text();
 			String replaceline = line.replaceFirst("DEBUTDECASE ", "");
-			result1.html +=  replaceline + "\n";
-		}
+			String replaceIMG = replaceline;
+			for(String str : listIm) {
+				replaceIMG = replaceIMG.replaceFirst("DEBUTIMAGE ", str + " ");
+			}
+			result1.html +=  replaceIMG + "\n";
+		}	
 		return result1;
 	}
 	
 	public ProductionCSV BodyToCSV() {
 		FormatHTML html = BodySplit();
 		String result = html.html.replaceAll(" DEBUTDECASE", ", ");
+		result =result.replaceAll("DEBUTDECASE", ", ");
 		String verif = result.replaceAll("  ", " ");
 		ProductionCSV prod  = new ProductionCSV(verif);
 		return prod;
