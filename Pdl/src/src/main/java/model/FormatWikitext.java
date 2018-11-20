@@ -111,47 +111,30 @@ public class FormatWikitext
 		return result;
 	}
 	
-	public FormatWikitext wikiSecondSplit() {
+		public FormatWikitext wikiSecondSplit() {
+		/*if(this.wikitext.contains("nts\\|}")) {
+			this.wikitext = this.wikitext.replaceAll("nts\\|}", "nts");
+			System.out.println("trouve");
+		}
 		String[] wikiseparateur = this.wikitext.split("\\|}");
 		FormatWikitext result = new FormatWikitext(wikiseparateur[0]);
 		/*for(int i=0; i<wikiseparateur.length;i++) {
 			result.wikitext += wikiseparateur[i];
-		}*/
+		}
 		//System.out.println(wikiseparateur[0]);
-		return result;
-	}
-	
-	public String[] wikiTabFirstTabs() {
+		return result;*/
 		FormatWikitext premiersplit = wikiPremierSplit();
-		FormatWikitext secondsplit = wikiSecondSplit();
-		String[] tab1 = premiersplit.wikitext.split("\\s+");
-		String[] tab2 = secondsplit.wikitext.split("\\s+");
-		ArrayList <String> tabfinal = new ArrayList<String>();
-		String[] tableaufinal = new String[tabfinal.size()];
-		int i=1; 
-		int j=1;
-		//int k=0;
-		//System.out.print(tab1[1] + " ++ " + tab2[9594]);
-		while(!tab1[i].equals(tab2[j])) {
-			//System.out.println(j);
-			j++;
-		}
-		//System.out.print(tab1[i+1] + " "+i +" " + " ++ " + tab2[j+1] + "  " + j);
-		while((tab1[i].equals(tab2[j])) && (j != tab2.length-1) ) {
-			tabfinal.add(tab1[i]);
-			//System.out.println(j);
-			i++;j++;
-		}
-		tableaufinal = tabfinal.toArray(tableaufinal);
-		return tableaufinal;
-	}
-	
-	public FormatWikitext wikiFirstTab() {
-		FormatWikitext result = new FormatWikitext(Arrays.toString(wikiTabFirstTabs()));
-		String joined = String.join(" ", wikiTabFirstTabs());
-		result.wikitext = joined;
+		FormatWikitext clone = premiersplit;
+		//System.out.println(clone.wikitext.toString());
+		FormatWikitext result = new FormatWikitext();
+		String[] separateur = clone.wikitext.split("\\|}");
+		result.wikitext = separateur[0];
+		System.out.println(result.wikitext.toString());
 		return result;
 	}
+	
+	
+	
 	
 	public String[] splitTab() {
 		String[]separateur = this.wikitext.split("\\|\\-");
