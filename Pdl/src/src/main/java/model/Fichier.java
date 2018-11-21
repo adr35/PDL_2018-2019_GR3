@@ -1,11 +1,11 @@
 package src.main.java.model;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-
 /**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
+ * <!-- begin-user-doc --> <!-- end-user-doc -->
+ * 
  * @generated
  */
 
@@ -16,7 +16,7 @@ public class Fichier extends Url {
 	public Fichier() {
 		this.setUrl = new HashSet<Url>();
 	}
-	
+
 	public Fichier(Set<Url> setUrl) {
 		this.setUrl = setUrl;
 	}
@@ -26,27 +26,36 @@ public class Fichier extends Url {
 		this.setUrl.add(urlUrl);
 	}
 
-	/*public Fichier(String urlString) {
-		Url url = new Url(urlString);
-		this.setUrl = new HashSet<Url>();
-		this.setUrl.add(url);
-	}*/
+	public Set<Url> getSetUrl() {
+		return setUrl;
+	}
 
-	
-	/*
-	 * public Url receive() { Url url = new Url(""); url = url.getUrltest();
-	 * System.out.println(url); return url; }
-	 */
+	public void setSetUrl(Set<Url> setUrl) {
+		this.setUrl = setUrl;
+	}
 
-	
-	/*public boolean addString(String url) {
-		this.setUrl.add(new Url(url));
-		return true;
-	}*/
-	
-	public boolean addUrl(Url url) {
-		this.setUrl.add(url);
-		return true;
+	public boolean addUrl(Url url) throws IOException {
+		if (url.isValidUrl()) {
+			if (setUrl.isEmpty()) {
+				return setUrl.add(url);
+			} else {
+				for (Url urlfichier : this.setUrl) {
+					if (urlfichier == url) {
+						return false;
+					}
+				}
+			}
+		}
+		return this.setUrl.add(url);
+	}
+
+	public boolean removeUrl(Url url) {
+		for (Url urlfichier : this.setUrl) {
+			if (urlfichier.equals(url)) {
+				return this.setUrl.remove(url);
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -62,4 +71,3 @@ public class Fichier extends Url {
 	}
 
 }
-
