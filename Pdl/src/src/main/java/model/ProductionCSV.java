@@ -1,5 +1,9 @@
 package src.main.java.model;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -30,9 +34,16 @@ public class ProductionCSV
 		public void Production (FormatHTML html) throws IOException
 	{
 		 try {
-		FileWriter writer = new FileWriter("File_Name.csv");
-		writer.write("TEST,TEST,TEST");
-		writer.close();
+		Scanner sc = new Scanner(System.in);	 
+	        String FILE_NAME = sc.nextLine();
+		sc.close();
+		
+	    FileWriter writer = new FileWriter(FILE_NAME+".csv");
+		  
+		  writer.write("TEST,TEST,TEST");
+		  writer.close();
+		
+		  System.out.println("Fichier CSV bien enregistré !");
 		 }
 		 catch (IOException e) {
 		        e.getStackTrace();
