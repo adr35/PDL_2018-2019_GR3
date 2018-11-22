@@ -12,8 +12,8 @@ public class TestPdl extends Thread{
 	final Url url2 = new Url("https://fr.wikipedia.org/wiki/Internationaux de France de tennis");
 	final Url url3 = new Url("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
 	
-	
-	final static File coupeDuMondeHTML = new File("html.txt");
+	final static File Wikiurls = new File("wikiurls.txt");
+	//final static File coupeDuMondeHTML = new File("html.txt");
 	//final static File presidentUSA = new File("HTML.txt");
 	
 	/*@Test
@@ -111,6 +111,18 @@ public class TestPdl extends Thread{
 		assertTrue(url.isValidUrl());
 		assertTrue("Lien redirigé", url4.isValidUrl());
 		assertFalse("Lien non valide", url5.isValidUrl());
+	}
+	
+	@Test
+	public void testreadFile() {
+		Fichier fichier = new Fichier();
+		fichier.productUrls(Wikiurls);
+		
+	}
+	
+	@Test
+	public void testUrlFromFile() {
+		
 	}
 }
 
