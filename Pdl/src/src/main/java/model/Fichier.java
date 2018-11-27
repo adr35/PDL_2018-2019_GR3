@@ -62,33 +62,25 @@ public class Fichier extends Url {
 		return false;
 	}
 
-		public void productUrls(File fichier) { // méthode produisant des Urls à partir du fichier "wikiurls.txt"
+		public void productUrls() { // méthode produisant des Urls à partir du fichier "wikiurls.txt"
 		try {
-			// File fichier = new File("wikiurls.txt");
+			File fichier = new File("wikiurls.txt");
 			FileReader fileread = new FileReader(fichier);
 			BufferedReader bufferread = new BufferedReader(fileread);
-			String[] Url = new String[336];
-			int i = 0;
-
+			Set<Url> Url = new HashSet<Url>();
 			try {
 				String line = bufferread.readLine();
-
 				while (line != null) {
 					// System.out.println(line);
 					line = bufferread.readLine();
-
-					Url[i] = "https://wikipedia.org/wiki/" + line + "\n";
-					i++;
-				}
-				Url[i - 1] = "";
-				
-				for (int j = 0; j <= i - 1; j++) {
-					System.out.println(Url[j]);
-				}
-				
+					Url.add(new Url("https://en.wikipedia.org/wiki/" + line + "\n"));
+				}		
+				for (Url u : Url) {
+					System.out.println(u.url);
+				}				
 				bufferread.close();
 				fileread.close();
-
+				this.setUrl = Url;
 			} catch (IOException exception) {
 				System.out.println("Erreur de la lecture : " + exception.getMessage());
 			}
