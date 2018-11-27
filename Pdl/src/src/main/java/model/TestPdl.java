@@ -113,11 +113,23 @@ public class TestPdl extends Thread{
 		assertFalse("Lien non valide", url5.isValidUrl());
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	public void testreadFile() {
 		Fichier fichier = new Fichier();
-		fichier.productUrls(Wikiurls);
-		
+		int articleOK = 0, articleKO = 0;
+		fichier.productUrls(); //ajout des Urls dans un fichier
+		for (Url url : fichier.setUrl) { //on parcours tous les Urls du fichier
+			if (url.isValidUrl()) { //on test si les Urls du fichier sont valident
+				articleOK++;
+			} else {
+				articleKO++;
+			}
+		}
+		assertEquals(articleOK, 314); // 314 Urls sont valident
+		assertEquals(articleKO, 22); // 22 Urls ne sont pas valident
 	}
 	
 	@Test
