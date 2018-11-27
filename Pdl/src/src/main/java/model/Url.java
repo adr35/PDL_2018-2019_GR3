@@ -19,6 +19,10 @@ import org.jsoup.nodes.Document;
  * @generated
  */
 
+/**
+ * @author Romiche
+ *
+ */
 public class Url {
 
 	public String url;
@@ -52,7 +56,11 @@ public class Url {
 	}
 
 		
-	public boolean isValidUrl() {
+	/**
+	 * 
+	 * @return true si Url est valide sinon false;
+	 */
+	public boolean isValidUrl() { 
 		// int ch;
 		try {
 			URL urlt = new URL(url);
