@@ -53,6 +53,13 @@ public class ProductionCSV
 		
 	}
 	
+	public void generateCSV(String title,int numTab) throws IOException {
+		FileWriter fileWriter = new FileWriter(title.trim() + "-" + numTab + ".csv");
+		fileWriter.write(this.csv);
+		fileWriter.flush();
+		fileWriter.close();
+	}
+	
 	
 	public void Production (FormatWikitext wiki)
 	{
