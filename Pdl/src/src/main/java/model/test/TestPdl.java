@@ -7,7 +7,11 @@ import org.junit.Test;
 import src.main.java.model.Fichier;
 import src.main.java.model.Url;
 
-
+/**
+ * Classe de tests prÈvisionnels
+ * @author Romiche
+ *
+ */
 public class TestPdl extends Thread{
 
 	final Url url = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
@@ -90,54 +94,7 @@ public class TestPdl extends Thread{
 		assertEquals("", test2.wikitext, "");
 }*/
 	
-	@Test
-	public void testadd() throws Exception {
-		Fichier fichier = new Fichier(); // Cr√©ation d'un fichier
-		boolean assert1 = fichier.addUrl(url); // Ajout d'un Url dans le fichier
-		boolean assert2 = fichier.addUrl(url2);
-		// boolean assert3 = fichier.addUrl(url3);
-		System.out.println(fichier.toString());
-		boolean assertR = fichier.removeUrl(url);
-		System.out.println(fichier.toString());
-		assertTrue("Url ajout√©", assert1);
-		assertTrue("Url2 ajout√©", assert2);
-		assertTrue("Url supprim√©", assertR);
-		// assertTrue("Url3 ajout√©", assert3);
-	}
 	
-	public void testremove() throws Exception {
-		
-	}
 
-
-	
-	/**
-	 * Production des Urls dans un fichier 
-	 * (utilisation de la mÈthode productUrl() de la classe Fichier)
-	 * Ensuite on parcourt tous les Urls du fichier
-	 * Et on test si ils existent ou non
-	 * Enfin, les assert testent si il y a bien 314 Urls valident 
-	 * et 22 non valident gr‚ce ‡ des variables comptants ces validitÈs.
-	 */
-	@Test
-	public void testreadFile() {
-		Fichier fichier = new Fichier();
-		int articleOK = 0, articleKO = 0;
-		fichier.productUrls(); 
-		for (Url url : fichier.setUrl) { 
-			if (url.isValidUrl()) { 
-				articleOK++;
-			} else {
-				articleKO++;
-			}
-		}
-		assertEquals(articleOK, 314); 
-		assertEquals(articleKO, 22);
-	}
-	
-	@Test
-	public void testUrlFromFile() {
-		
-	}
 }
 
