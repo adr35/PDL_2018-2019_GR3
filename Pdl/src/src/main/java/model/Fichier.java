@@ -38,7 +38,15 @@ public class Fichier extends Url {
 		this.setUrl = setUrl;
 	}
 
-	public boolean addUrl(Url url) throws IOException {
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * 
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public boolean addUrl(Url url)  {
 		if (url.isValidUrl()) {
 			if (setUrl.isEmpty()) {
 				return setUrl.add(url);
@@ -53,6 +61,14 @@ public class Fichier extends Url {
 		return this.setUrl.add(url);
 	}
 
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * 
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	public boolean removeUrl(Url url) {
 		for (Url urlfichier : this.setUrl) {
 			if (urlfichier.equals(url)) {
@@ -61,8 +77,21 @@ public class Fichier extends Url {
 		}
 		return false;
 	}
+	
 
-		public void productUrls() { // mÃ©thode produisant des Urls Ã  partir du fichier "wikiurls.txt"
+	/**
+	 * <!-- begin-user-doc -->
+	 * Méthode produisant des Urls à partir du fichier "wikiurls.txt"
+	 * En lisant ligne par ligne les String contenus dans le fichier 
+	 * Concat
+	 * Les ajoute dans un nouveau String pour former un Url 
+	 * Et renvoi un ensemble d'Url
+	 * Les exceptions servent si le fichier à tester n'existe pas
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+		public void productUrls() { 
 		try {
 			File fichier = new File("wikiurls.txt");
 			FileReader fileread = new FileReader(fichier);
@@ -89,10 +118,16 @@ public class Fichier extends Url {
 		}
 	}
 
-	public Url productUrls() {
-		return null;
-	}
-	
+		
+		/**
+		 * <!-- begin-user-doc -->
+		 * Mise en place d'un toString() permettant de renvoyer le contenu d'un fichier 
+		 * Le fichier en question contient des Urls précédemment proposé par l'utilisateur
+		 * Ou pour visualiser simplement le contenu du/des fichier(s) utilisé(s) contenant des String ou direcetment des Urls 
+		 * <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
 	@Override
 	public String toString() {
 		String result = "[~~~~~~~~~~~~~~~~~~~~~~~~~~~Fichier~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\n";

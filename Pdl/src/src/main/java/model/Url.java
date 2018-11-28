@@ -57,8 +57,13 @@ public class Url {
 
 		
 	/**
+	 * <!-- begin-user-doc -->
+	 * Methode booleen qui renvoie vrai si Url est valide
+	 * Et renvoie false si Url n'est pas valide
 	 * 
-	 * @return true si Url est valide sinon false;
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
 	 */
 	public boolean isValidUrl() { 
 		// int ch;

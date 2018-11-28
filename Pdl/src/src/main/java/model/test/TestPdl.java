@@ -1,9 +1,11 @@
-package src.main.java.model;
+package src.main.java.model.test;
 import static org.junit.Assert.*;
-
 
 import java.io.*;
 import org.junit.Test;
+
+import src.main.java.model.Fichier;
+import src.main.java.model.Url;
 
 
 public class TestPdl extends Thread{
@@ -89,7 +91,7 @@ public class TestPdl extends Thread{
 }*/
 	
 	@Test
-	public void testFichier() throws Exception {
+	public void testadd() throws Exception {
 		Fichier fichier = new Fichier(); // Cr√©ation d'un fichier
 		boolean assert1 = fichier.addUrl(url); // Ajout d'un Url dans le fichier
 		boolean assert2 = fichier.addUrl(url2);
@@ -101,35 +103,36 @@ public class TestPdl extends Thread{
 		assertTrue("Url2 ajout√©", assert2);
 		assertTrue("Url supprim√©", assertR);
 		// assertTrue("Url3 ajout√©", assert3);
-
-	}
-
-	@Test
-	public void testconnexionUrl() {
-		Url url4 = new Url("http://fr.wikipedia.org/wiki/Coupe_du_monde_de_football"); // Lien redirig√©
-		Url url5 = new Url("http://fr.wikipedia.org/wiki/Coupe de football"); // Lien non valide
-		assertTrue(url.isValidUrl());
-		assertTrue("Lien redirig√©", url4.isValidUrl());
-		assertFalse("Lien non valide", url5.isValidUrl());
 	}
 	
+	public void testremove() throws Exception {
+		
+	}
+
+
+	
 	/**
-	 * 
+	 * Production des Urls dans un fichier 
+	 * (utilisation de la mÈthode productUrl() de la classe Fichier)
+	 * Ensuite on parcourt tous les Urls du fichier
+	 * Et on test si ils existent ou non
+	 * Enfin, les assert testent si il y a bien 314 Urls valident 
+	 * et 22 non valident gr‚ce ‡ des variables comptants ces validitÈs.
 	 */
 	@Test
 	public void testreadFile() {
 		Fichier fichier = new Fichier();
 		int articleOK = 0, articleKO = 0;
-		fichier.productUrls(); //ajout des Urls dans un fichier
-		for (Url url : fichier.setUrl) { //on parcours tous les Urls du fichier
-			if (url.isValidUrl()) { //on test si les Urls du fichier sont valident
+		fichier.productUrls(); 
+		for (Url url : fichier.setUrl) { 
+			if (url.isValidUrl()) { 
 				articleOK++;
 			} else {
 				articleKO++;
 			}
 		}
-		assertEquals(articleOK, 314); // 314 Urls sont valident
-		assertEquals(articleKO, 22); // 22 Urls ne sont pas valident
+		assertEquals(articleOK, 314); 
+		assertEquals(articleKO, 22);
 	}
 	
 	@Test
