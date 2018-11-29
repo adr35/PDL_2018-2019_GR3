@@ -112,6 +112,14 @@ public class Url {
 	}
 
 	
+	public void HTML() throws IOException {
+		if(isValidUrl()) {
+		Document doc = Jsoup.connect(getUrl()).get();
+		FormatHTML fhtml =new FormatHTML(doc.html());
+		fhtml.ToCSV();
+		}
+	}
+	
 
 	public String HTML() throws IOException {
 		Document doc = Jsoup.connect(getUrl()).get();
