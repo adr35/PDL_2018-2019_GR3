@@ -112,7 +112,7 @@ public class Url {
 	}
 
 	
-	public void HTML() throws IOException {
+	public void HTML2() throws IOException {
 		if(isValidUrl()) {
 		Document doc = Jsoup.connect(getUrl()).get();
 		FormatHTML fhtml =new FormatHTML(doc.html());
