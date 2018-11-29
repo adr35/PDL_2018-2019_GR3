@@ -2,6 +2,8 @@ package src.main.java.model.test;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import org.junit.Test;
 import src.main.java.model.Fichier;
 import src.main.java.model.Url;
@@ -16,6 +18,9 @@ public class TestFichier {
 	final Url url = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
 	final Url url2 = new Url("https://fr.wikipedia.org/wiki/Internationaux de France de tennis");
 	
+	Fichier Wikiurls = new Fichier();
+	//final static File Wikiurls = new File("wikiurls.txt");
+	
 	/**
 	 * Test de la méthode addUrl()
 	 * Ajoute un Url dans un Fichier
@@ -23,7 +28,7 @@ public class TestFichier {
 	 * @throws Exception
 	 */
 	@Test
-	public void testadd() throws Exception {
+	public void TestAdd() throws Exception {
 		Fichier fichier = new Fichier();
 		boolean assert1 = fichier.addUrl(url);
 		//System.out.println(fichier.toString());
@@ -37,7 +42,7 @@ public class TestFichier {
 	 * @throws Exception
 	 */
 	@Test
-	public void testremove() throws Exception {
+	public void TestRemove() throws Exception {
 		Fichier fichier = new Fichier();
 		fichier.addUrl(url);
 		fichier.addUrl(url2);
@@ -47,15 +52,19 @@ public class TestFichier {
 	}
 	
 	/**
-	 * Test de la méthode addUrl() sur wikiurls.txt
-	 * Ajoute tous les urls de wikiurls.txt dans un nouveau fichier pour save 
-	 * @return true si ajout dans fichier OK
-	 * @throws Exception
+	 * Test de la méthode toString()
+	 * Affiche le fichier contenant les Urls ajouté, sous forme de String
+	 * 
 	 */
 	@Test
-	public void testaddwikiurls() {
+	public void TestToString() {
 		Fichier fichier = new Fichier();
-		//.....
+		fichier.addUrl(url);
+		System.out.println(fichier.toString());
+		assertEquals(fichier.toString(),
+				"[~~~~~~~~~~~~~~~~~~~~~~~~~~~Fichier~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\n"
+				+ "1--> https://fr.wikipedia.org/wiki/Coupe du monde de football" + "\n"
+						+ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]");
 	}
 	
 	/**
@@ -67,26 +76,27 @@ public class TestFichier {
 	 * et 22 non valident grâce à des variables comptants ces validités.
 	 */
 	@Test
-	public void testreadFile() {
-		Fichier fichier = new Fichier();
+	public void TestReadFile() {
 		int articleOK = 0, articleKO = 0;
-		fichier.productUrls(); 
-		for (Url url : fichier.setUrl) { 
-			if (url.isValidUrl()) { 
+		Wikiurls.productUrls();
+		for (Url url : Wikiurls.setUrl) {
+			if (url.isValidUrl()) {
 				articleOK++;
 			} else {
 				articleKO++;
 			}
 		}
-		assertEquals(articleOK, 314); 
+		System.out.println(Wikiurls.toString());
+		assertEquals(articleOK, 314);
 		assertEquals(articleKO, 22);
 	}
 	
+
 	/**
 	 * 
 	 */
 	@Test
-	public void testUrlFromFile() {
+	public void TestUrlFromFile() {
 		
 	}
 }

@@ -117,6 +117,11 @@ public class Fichier extends Url {
 			System.out.println("Le fichier n'existe pas");
 		}
 	}
+		
+		public void productUrlswithoutsysout() { 
+			
+			
+		}
 
 		
 		/**

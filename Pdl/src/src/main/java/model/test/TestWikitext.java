@@ -24,7 +24,7 @@ public class TestWikitext {
 	 * @throws IOException
 	 */
 	@Test
-	public void testwiki() throws IOException {
+	public void TestWiki() throws IOException {
 		String HTML = url.HTML();
 		String HTML2 = url2.HTML();
 

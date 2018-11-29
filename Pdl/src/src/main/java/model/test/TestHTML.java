@@ -22,10 +22,11 @@ public class TestHTML {
 	 * @throws IOException
 	 */
 	@Test
-	public void testUrl() throws IOException {
+	public void TestUrl() throws IOException {
 	 String HTML = url.HTML();
 	 FormatHTML test = new FormatHTML(HTML);
 	 test = test.PremierSplit();
+	 System.out.println(test.PremierSplit().toString());
 	 test = test.SecondSplit();
 	 test = test.headSplit();
 	 test = test.headParse();

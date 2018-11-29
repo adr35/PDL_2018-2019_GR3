@@ -411,5 +411,12 @@ public class FormatHTML
 		return clone;
 	}
 
+	@Override
+	public String toString() {
+		return "FormatHTML [html=" + html + ", nbtab=" + nbtab + ", tabCourant=" + tabCourant + "]";
+	}
+	
+	
+
 }
 

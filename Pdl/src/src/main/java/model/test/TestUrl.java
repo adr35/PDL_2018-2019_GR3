@@ -20,7 +20,7 @@ public class TestUrl {
 	 * @return true
 	 */
 	@Test
-	public void testvalidUrl() {
+	public void TestValidUrl() {
 		assertTrue(url.isValidUrl());
 	}
 
@@ -30,7 +30,7 @@ public class TestUrl {
 	 * @return true
 	 */
 	@Test
-	public void testredirectUrl() {
+	public void TestRedirectUrl() {
 		Url url = new Url("http://fr.wikipedia.org/wiki/Coupe_du_monde_de_football"); // Lien redirigÃ©
 		assertTrue("Lien redirigé", url.isValidUrl());
 	}
@@ -41,7 +41,7 @@ public class TestUrl {
 	 * @return false
 	 */
 	@Test
-	public void testnonvalideUrl() {
+	public void TestNonValidUrl() {
 		Url url = new Url("http://fr.wikipedia.org/wiki/Coupe de football"); // Lien non valide
 		assertFalse("Lien non valide", url.isValidUrl());
 	}
