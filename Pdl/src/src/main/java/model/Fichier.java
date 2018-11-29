@@ -81,12 +81,12 @@ public class Fichier extends Url {
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * Méthode produisant des Urls à partir du fichier "wikiurls.txt"
+	 * MÃ©thode produisant des Urls Ã  partir du fichier "wikiurls.txt"
 	 * En lisant ligne par ligne les String contenus dans le fichier 
 	 * Concat
 	 * Les ajoute dans un nouveau String pour former un Url 
 	 * Et renvoi un ensemble d'Url
-	 * Les exceptions servent si le fichier à tester n'existe pas
+	 * Les exceptions servent si le fichier Ã  tester n'existe pas
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -119,11 +119,31 @@ public class Fichier extends Url {
 	}
 
 		
+			public void FichierToHTML() throws IOException {
+			for(Url u : setUrl) {
+				u.HTML();
+			}
+		}
+		
+		public void FichierToHTML(int nbUrl) throws IOException {
+			int i = 0;
+			for(Url u : setUrl) {
+				if(i < nbUrl) {
+				u.HTML();
+				i++;
+				}
+				else
+					break;
+			}
+		}
+	
+	
+	
 		/**
 		 * <!-- begin-user-doc -->
 		 * Mise en place d'un toString() permettant de renvoyer le contenu d'un fichier 
-		 * Le fichier en question contient des Urls précédemment proposé par l'utilisateur
-		 * Ou pour visualiser simplement le contenu du/des fichier(s) utilisé(s) contenant des String ou direcetment des Urls 
+		 * Le fichier en question contient des Urls prÃ©cÃ©demment proposÃ© par l'utilisateur
+		 * Ou pour visualiser simplement le contenu du/des fichier(s) utilisÃ©(s) contenant des String ou direcetment des Urls 
 		 * <!-- end-user-doc -->
 		 * 
 		 * @generated
