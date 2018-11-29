@@ -40,38 +40,30 @@ public class FormatHTML
 	/**
 	 * <!-- begin-user-doc -->
 	 * Renvoie la production sous format CSV de tous les tableaux de la page html courante.
-	 * Fait un premier tour dans la page html courante afin de dÃ©terminer le nombre de tableaux Ã  convertir.
+	 * Fait un premier tour dans la page html courante afin de dÃ©terminer le nombre de tableaux Ã  convertir.
 	 * Ensuite boucle afin de traiter les tableaux 1 par 1
-	 * Puis les ajoute Ã  la production CSVfinal,
+	 * Puis les ajoute Ã  la production CSVfinal,
 	 * On distingue deux traitements differents,celle de la tete du tableau, et celle du corps.
 	 * <!--  end-user-doc  -->
+	 * @throws IOException 
 	 * @generated
 	 * @ordered
 	 */
 	
-	public ProductionCSV ToCSV() {
+	public void ToCSV() throws IOException {
 		String result = "";
 		FormatHTML clone = clone();
 		String[] separateur = clone.html.split("table class=\"wikitable");
 		nbtab = separateur.length -1;
-		
-		//nbtab = 1;
 		String title = getTitle();
-		if(nbtab > 0) {
-			result = title + "\n\nTableau n°1 \n\n";
-		}
 		for(int i = 0; i< nbtab; i++){
 			tabCourant = i +1;
 			ProductionCSV head = headToCSV();
 			ProductionCSV body = BodyToCSV();
-			if(i < nbtab -1)
-			result += (head.csv + "\n" +body.csv +"\nTableau n°" + (i+2) +"\n\n");
-			else
-			result += head.csv + "\n" +body.csv;
+			result = (head.csv + "\n" +body.csv);
+			ProductionCSV prod = new ProductionCSV(result);
+			prod.generateCSV(title, tabCourant);
 		}
-		ProductionCSV prod = new ProductionCSV(result);
-		System.out.println(prod.csv);
-		return prod;
 	}
 	
 	
@@ -148,7 +140,7 @@ public class FormatHTML
 		String [] separateur = html.html.split("<tr>");
 		String res = separateur[1]; 
 		for(int i = 2; i < separateur.length ;i++){
-			if(separateur[i].contains("<th")){
+			if(!separateur[i].contains("<td")){
 				res += "NOUVLIGNE\n" + separateur[i];
 			}
 		}
@@ -165,7 +157,7 @@ public class FormatHTML
 	
 	public FormatHTML getSpan() {
 		FormatHTML html = headSplit().clone();
-		String[] numCol = html.html.split("<th");
+		String[] numCol = html.html.split("<th [^>]*>");
 		String[] resultConcat = html.html.split("<th [^>]*>");
 		String result = numCol[0];
 		for (int i = 1; i < numCol.length; i++){	
@@ -228,6 +220,7 @@ public class FormatHTML
 	public ProductionCSV headToCSV() {
 		FormatHTML html = headParse();
 		String result = html.html.replaceAll(" DEBUTDECASE", ", ");
+		result = result.replaceAll("DEBUTDECASE ", ", ");
 		String verif = result.replaceAll("  ", " ");
 		ProductionCSV prod  = new ProductionCSV("");
 		if(verif.contains("rowDBTR") || verif.contains("rowDBTC")){
@@ -300,6 +293,7 @@ public class FormatHTML
 		else{
 			prod.csv = verif;
 		}
+		prod.csv = prod.csv.replaceAll("NOUVLIGNE", "\n");
 		prod.csv = prod.csv.replaceAll("  ", " ");
 		return prod;
 	}
@@ -324,6 +318,8 @@ public class FormatHTML
 		FormatHTML result = new FormatHTML(st);
 		FormatHTML result1 = new FormatHTML();
 		for(int i = 2; i< separateur.length; i++) {
+			separateur[i] = separateur[i].replaceAll("<th [^>]* >", "<td>");
+			separateur[i] = separateur[i].replaceAll("\th>", "\td>");
 			if(separateur[i].contains("<td>")){
 				st = separateur[i];
 				String replaceString=st.replaceAll("<td[^>]*>","<td>DEBUTDECASE ");
@@ -419,4 +415,3 @@ public class FormatHTML
 	
 
 }
-
