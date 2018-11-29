@@ -2,6 +2,8 @@ package src.main.java.model.test;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Test;
 import src.main.java.model.Url;
 
@@ -44,5 +46,11 @@ public class TestUrl {
 	public void TestNonValidUrl() {
 		Url url = new Url("http://fr.wikipedia.org/wiki/Coupe de football"); // Lien non valide
 		assertFalse("Lien non valide", url.isValidUrl());
+	}
+	
+	@Test
+	public void TestToHTML() throws IOException{
+		System.out.println(url.HTML());
+		
 	}
 }

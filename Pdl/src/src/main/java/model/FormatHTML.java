@@ -409,7 +409,7 @@ public class FormatHTML
 
 	@Override
 	public String toString() {
-		return "FormatHTML [html=" + html + ", nbtab=" + nbtab + ", tabCourant=" + tabCourant + "]";
+		return "FormatHTML [html=" + html + "]";
 	}
 	
 	
