@@ -54,6 +54,13 @@ public class FormatWikitext
 		return null;
 	}
 	
+	
+	/**************Production de l'Url de la page Wikitext************************/
+	 	
+	/**
+	 * 
+	 * @return
+	 */
 	public FormatWikitext wikisplit() {
 			String[] separateur = this.wikitext.split("title");
 			FormatWikitext result = new FormatWikitext(separateur[1]);
@@ -95,6 +102,20 @@ public class FormatWikitext
 	}
 	
 	
+	/** Nouvel URL pour la page Wikitext
+	 * 
+	 * @return 
+	 */
+	public FormatWikitext newUrl(String url) {
+		url = urlfinal;
+		FormatWikitext newUrl = new FormatWikitext("https://en.wikipedia.org/w/index.php?title=" + url + "&action=edit");
+		//System.out.println(newUrl);
+		//System.out.print(wikitext);
+		return newUrl;
+
+	}
+	/*************************************************************************************/
+	/*****************Récupération des éléments du head des tableaux**********************/
 	
 	public FormatWikitext wikiPremierSplit() {
 		String[] wikiseparateur = this.wikitext.split("\\{\\|");
@@ -155,7 +176,7 @@ public class FormatWikitext
 				String[]separateur2 = tabfinal[i].split("\\|");
 				tabfinal[i] = separateur2[1];
 			}
-			tabfinal[i] = tabfinal[i].replaceAll("[^\\wàâäÄÀÂéèêëÈÊËìîïÌÏÎòöôÒÖÔùüûÙÜÛç!#$€%&'`(),;:/@...]", "");
+			tabfinal[i] = tabfinal[i].replaceAll("[^\\wÃ Ã¢Ã¤Ã„Ã€Ã‚Ã©Ã¨ÃªÃ«ÃˆÃŠÃ‹Ã¬Ã®Ã¯ÃŒÃ�ÃŽÃ²Ã¶Ã´Ã’Ã–Ã”Ã¹Ã¼Ã»Ã™ÃœÃ›Ã§!#$â‚¬%&'`(),;:/@...]", "");
 			//System.out.println(tabfinal[i]);
 		}
 		result.wikitext = Arrays.toString(tabfinal);
@@ -181,7 +202,7 @@ public class FormatWikitext
 		return result;	
 	}
 
-	
+	/**********************************************************************/
 	
 	public FormatWikitext wikiRowPremierSplit() { // on split sur les "|-"
 		FormatWikitext result = new FormatWikitext();
@@ -200,7 +221,7 @@ public class FormatWikitext
 				if(elements[j].contains(",")) {
 					elements[j] = elements[j].replaceAll(",", " ");
 				}
-				elements[j] = elements[j].replaceAll("[^\\wàâäÄÀÂéèêëÈÊËìîïÌÏÎòöôÒÖÔùüûÙÜÛç!#$€%&'`(),;:/@...]", "");
+				elements[j] = elements[j].replaceAll("[^\\wÃ Ã¢Ã¤Ã„Ã€Ã‚Ã©Ã¨ÃªÃ«ÃˆÃŠÃ‹Ã¬Ã®Ã¯ÃŒÃ�ÃŽÃ²Ã¶Ã´Ã’Ã–Ã”Ã¹Ã¼Ã»Ã™ÃœÃ›Ã§!#$â‚¬%&'`(),;:/@...]", "");
 					/*String[] remove = elements[j].split("\\[\\[");
 					elements[j] = remove[1];
 					if(elements[j].contains("]]")) {
@@ -227,6 +248,10 @@ public class FormatWikitext
 		return result;
 	}
 	
+	
+	/*********************************************************************************/
+	/************Prodcution CSV de la page wikitext***********************************/
+	
 	public ProductionCSV headToCSV() {
 		//FormatWikitext title = wikisplit();
 		FormatWikitext wikitext = wikiHeadParse();
@@ -249,18 +274,5 @@ public class FormatWikitext
 		return prod;
 	}
 
-	
-	/** Nouvel URL pour la page Wikitext
-	 * 
-	 * @return 
-	 */
-	public FormatWikitext newUrl(String url) {
-		url = urlfinal;
-		FormatWikitext newUrl = new FormatWikitext("https://en.wikipedia.org/w/index.php?title=" + url + "&action=edit");
-		//System.out.println(newUrl);
-		//System.out.print(wikitext);
-		return newUrl;
-
-	}
 	
 }

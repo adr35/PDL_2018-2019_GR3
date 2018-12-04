@@ -5,6 +5,8 @@ import java.io.*;
 import org.junit.Test;
 
 import src.main.java.model.Fichier;
+import src.main.java.model.FormatWikitext;
+import src.main.java.model.ProductionCSV;
 import src.main.java.model.Url;
 
 /**
