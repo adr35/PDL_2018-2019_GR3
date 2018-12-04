@@ -3,6 +3,9 @@ package src.main.java.model.test;
 import static org.junit.Assert.*;
 
 import java.io.*;
+
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import src.main.java.model.FormatWikitext;
@@ -14,22 +17,28 @@ import src.main.java.model.Url;
  * @author Romiche
  *
  */
-public class TestWikitext {
+public class TestWikitext  {
 	
-	final Url url = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
-	final Url url2 = new Url("https://fr.wikipedia.org/wiki/Internationaux de France de tennis");
-	final Url url3 = new Url("https://fr.wikipedia.org/wiki/Liste_des_pr%C3%A9sidents_des_%C3%89tats-Unis");
+	final Url url = new Url("https://en.wikipedia.org/wiki/Comparison_of_BitTorrent_tracker_software");
 	
 	/**
 	 * 
 	 * @throws IOException
 	 */
+	
+	@Test
+	public void TestNewUrl() throws IOException {
+		String HTML2 = url.HTML();
+		FormatWikitext wiki = new FormatWikitext(HTML2);
+		wiki = wiki.wikisplit();
+		assertEquals(wiki.wikitext.toString(),
+				"https://en.wikipedia.org/w/index.php?title=Comparison of BitTorrent tracker software&action=edit");
+	}
+	
+	
 	@Test
 	public void testwiki() throws IOException {
-		Url url = new Url("https://fr.wikipedia.org/w/index.php?title=Internationaux de France de tennis&action=edit");
-		Url url2 = new Url("https://en.wikipedia.org/wiki/Comparison_of_BitTorrent_tracker_software");
-		//https://en.wikipedia.org/wiki/Comparison_of_CRT,_LCD,_and_plasma
-		String HTML2 = url2.HTML();
+		String HTML2 = url.HTML();
 		
 		FormatWikitext test2 = new FormatWikitext(HTML2);
 		FormatWikitext lignes = new FormatWikitext(HTML2);
@@ -84,4 +93,7 @@ public class TestWikitext {
 		//System.out.println(lignes2.wikitext.toString());
 	//	assertEquals("", test2.wikitext, "");
 }
+	
+	
+	
 }

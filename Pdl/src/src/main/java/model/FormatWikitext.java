@@ -55,7 +55,7 @@ public class FormatWikitext
 	}
 	
 	
-	/**************Production de l'Url de la page Wikitext************************/
+	/******************Production de l'Url de la page Wikitext************************/
 	 	
 	/**
 	 * 
@@ -274,5 +274,6 @@ public class FormatWikitext
 		return prod;
 	}
 
+	
 	
 }
