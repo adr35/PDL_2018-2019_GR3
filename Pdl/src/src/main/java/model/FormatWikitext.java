@@ -41,19 +41,7 @@ public class FormatWikitext
 		this.wikitext = wikitext;
 	}
 	
-	/**
-	 * <!-- begin-user-doc -->
-	 * Renvoie la prodction CSV correspondant au tableau de la page HTML sous forme CSV
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public ProductionCSV ToCSV(FormatWikitext WikitextFormat) {
-		// TODO implement me
-		return null;
-	}
-	
+
 	
 	/******************Production de l'Url de la page Wikitext************************/
 	 	
@@ -65,7 +53,7 @@ public class FormatWikitext
 			String[] separateur = this.wikitext.split("title");
 			FormatWikitext result = new FormatWikitext(separateur[1]);
 			result = newUrl(ArrayListToString(charArrayToArrayList(separateur[1])));
-			System.out.println(result.wikitext.toString());
+			//System.out.println(result.wikitext.toString());
 			//result = newUrl();
 			return result;
 		}
@@ -89,7 +77,6 @@ public class FormatWikitext
 			urlTitle.remove(j);
 		}
 		//System.out.print(urlTitle);
-		System.out.println("");
 		return urlTitle;
 	}
 		
@@ -125,12 +112,13 @@ public class FormatWikitext
 	
 	public FormatWikitext wikiSecondSplit() {
 		FormatWikitext premiersplit = wikiPremierSplit();
-		FormatWikitext clone = premiersplit;
+		//FormatWikitext clone = premiersplit;
 		FormatWikitext result = new FormatWikitext();
-		String[] separateur = clone.wikitext.split("\\|}");
+		String[] separateur = this.wikitext.split("\\|}");
 		result.wikitext = separateur[0];
 		return result;
 	}
+	
 	
 
 	
@@ -272,6 +260,19 @@ public class FormatWikitext
 			e.printStackTrace();
 		}
 		return prod;
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * Renvoie la prodction CSV correspondant au tableau de la page HTML sous forme CSV
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public ProductionCSV ToCSV() throws IOException{
+		// TODO implement me
+		return null;
 	}
 
 	
