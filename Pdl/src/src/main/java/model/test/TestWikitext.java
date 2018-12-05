@@ -57,7 +57,7 @@ public class TestWikitext  {
 		System.out.println("Tableau entier : ");
 		System.out.println("\n" + "Head : ");
 		System.out.println("Lignes : ");
-}
+} 
 	
 	
 	

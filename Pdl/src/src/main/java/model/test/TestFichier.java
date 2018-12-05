@@ -18,6 +18,7 @@ public class TestFichier {
 	final Url url = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
 	final Url url2 = new Url("https://fr.wikipedia.org/wiki/Internationaux de France de tennis");
 	
+	Fichier fichier = new Fichier();
 	Fichier Wikiurls = new Fichier();
 	//final static File Wikiurls = new File("wikiurls.txt");
 	
@@ -29,10 +30,14 @@ public class TestFichier {
 	 */
 	@Test
 	public void TestAdd() throws Exception {
-		Fichier fichier = new Fichier();
-		boolean assert1 = fichier.addUrl(url);
-		//System.out.println(fichier.toString());
-		assertTrue("Url ajouté", assert1);
+		assertTrue("Url ajouté", fichier.addUrl(url));
+	}
+	
+	
+	@Test
+	public void TestAdd2() throws Exception {
+		assertTrue(fichier.addUrl(url));
+		assertFalse("Url ne peux pas s'ajouter", fichier.addUrl(url));
 	}
 	
 	/**
@@ -43,12 +48,9 @@ public class TestFichier {
 	 */
 	@Test
 	public void TestRemove() throws Exception {
-		Fichier fichier = new Fichier();
-		fichier.addUrl(url);
-		fichier.addUrl(url2);
-		boolean assertR = fichier.removeUrl(url);
-		//System.out.println(fichier.toString());
-		assertTrue("Url supprimé", assertR);
+		assertTrue(fichier.addUrl(url));
+		assertTrue(fichier.addUrl(url2));
+		assertTrue("Url supprimer", fichier.removeUrl(url));
 	}
 	
 	/**
@@ -58,8 +60,7 @@ public class TestFichier {
 	 */
 	@Test
 	public void TestToString() {
-		Fichier fichier = new Fichier();
-		fichier.addUrl(url);
+		assertTrue(fichier.addUrl(url));
 		System.out.println(fichier.toString());
 		assertEquals(fichier.toString(),
 				"[~~~~~~~~~~~~~~~~~~~~~~~~~~~Fichier~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\n"
