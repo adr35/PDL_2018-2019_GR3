@@ -17,6 +17,8 @@ public class TestFichier {
 
 	final Url url = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
 	final Url url2 = new Url("https://fr.wikipedia.org/wiki/Internationaux de France de tennis");
+	final Url urlfalse = new Url("http://wikipedia.fr/InternationauxFrancetennis");
+
 	
 	Fichier fichier = new Fichier();
 	Fichier Wikiurls = new Fichier();
@@ -39,6 +41,11 @@ public class TestFichier {
 		assertTrue(fichier.addUrl(url));
 		assertFalse("Url ne peux pas s'ajouter", fichier.addUrl(url));
 	}
+	
+	/*@Test
+	public void TestAdd3() throws Exception {
+		assertFalse("Url n'existe pas", fichier.addUrl(urlfalse));
+	}*/
 	
 	/**
 	 * Test de la méthode removeUrl()
