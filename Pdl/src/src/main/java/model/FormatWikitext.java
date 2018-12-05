@@ -63,6 +63,7 @@ public class FormatWikitext
 	    lignes2 = lignes2.wikiSecondSplit();
 	    result.wikitext = head2.wikitext + "\n" + lignes2.wikitext;
 	    result.ToCSV();
+	    System.out.println(result.wikitext.toString());
 	}
 	
 	/******************** DEBUT DE LA RECUPERATION DE L URL ***************/
