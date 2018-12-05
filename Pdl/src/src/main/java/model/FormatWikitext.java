@@ -31,6 +31,7 @@ public class FormatWikitext
 	public int nbelements;
 	public int nbtab;
 	public int tabCourant;
+	public String titleCSV;
 	//public int nbcol;
 
 
@@ -108,6 +109,8 @@ public class FormatWikitext
 		//System.out.println(urlfinal);
 		return urlfinal;
 	}
+	
+	
 	
 	/******************** FIN DE LA RECUPERATION DE L URL ***************/
 	
@@ -249,7 +252,6 @@ public class FormatWikitext
 		prod.csv = prod.csv.replaceAll("  ", " ");
 		try {
 			prod.generateCSV("coin", 1);
-			System.out.println("Fichier créé avec succès.");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -285,7 +287,7 @@ public class FormatWikitext
 			}
 			result.wikitext = result.wikitext + "\n";
 		}
-		System.out.println(result.wikitext.toString());
+		//System.out.println(result.wikitext.toString());
 		return result;
 	}
 	
@@ -302,7 +304,6 @@ public class FormatWikitext
 		prod.csv = prod.csv.replaceAll("  ", " ");
 		try {
 			prod.generateCSV("lignes", 1);
-			System.out.println("Fichier créé avec succès.");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -324,8 +325,8 @@ public class FormatWikitext
 			ProductionCSV body = rowToCSV();
 			result = (head.csv + "\n" +body.csv);
 			ProductionCSV prod = new ProductionCSV(result);
-			prod.generateCSV("test", tabCourant);
-		
+			prod.generateCSV("", 0);
+			System.out.println("Fichier créé avec succès.");
 }
 	
 
