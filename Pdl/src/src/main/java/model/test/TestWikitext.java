@@ -20,6 +20,8 @@ import src.main.java.model.Url;
 public class TestWikitext  {
 	
 	final Url url = new Url("https://en.wikipedia.org/wiki/Comparison_of_BitTorrent_tracker_software");
+	final FormatWikitext wikitext = new FormatWikitext();
+
 	
 	/**
 	 * 
@@ -38,25 +40,7 @@ public class TestWikitext  {
 	
 	@Test
 	public void testwiki() throws IOException {
-		String HTML2 = url.HTML();	
-		FormatWikitext head = new FormatWikitext(HTML2);
-		FormatWikitext lignes = new FormatWikitext(HTML2);	
-		head = head.wikisplit();
-		lignes = lignes.wikisplit();
-		Url urlHead = new Url(head.wikitext);
-		Url urlLignes = new Url(lignes.wikitext);
-		String HTML3 = urlHead.HTML();
-		String HTML4 = urlLignes.HTML();
-		FormatWikitext head2 = new FormatWikitext(HTML3);
-		FormatWikitext lignes2 = new FormatWikitext(HTML4);
-		FormatWikitext result = new FormatWikitext();
-	    head2 = head2.wikiSecondSplit();
-	    lignes2 = lignes2.wikiSecondSplit();
-	    result.wikitext = head2.wikitext + "\n" + lignes2.wikitext;
-	    result.ToCSV();
-		System.out.println("Tableau entier : ");
-		System.out.println("\n" + "Head : ");
-		System.out.println("Lignes : ");
+		wikitext.initialize(url);
 } 
 	
 	

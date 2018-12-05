@@ -44,6 +44,27 @@ public class FormatWikitext
 		this.wikitext = wikitext;
 	}
 	
+	
+	
+	public void initialize(Url url) throws IOException{
+		String HTML2 = url.HTML();	
+		FormatWikitext head = new FormatWikitext(HTML2);
+		FormatWikitext lignes = new FormatWikitext(HTML2);	
+		head = head.wikisplit();
+		lignes = lignes.wikisplit();
+		Url urlHead = new Url(head.wikitext);
+		Url urlLignes = new Url(lignes.wikitext);
+		String HTML3 = urlHead.HTML();
+		String HTML4 = urlLignes.HTML();
+		FormatWikitext head2 = new FormatWikitext(HTML3);
+		FormatWikitext lignes2 = new FormatWikitext(HTML4);
+		FormatWikitext result = new FormatWikitext();
+	    head2 = head2.wikiSecondSplit();
+	    lignes2 = lignes2.wikiSecondSplit();
+	    result.wikitext = head2.wikitext + "\n" + lignes2.wikitext;
+	    result.ToCSV();
+	}
+	
 	/******************** DEBUT DE LA RECUPERATION DE L URL ***************/
 
 	
