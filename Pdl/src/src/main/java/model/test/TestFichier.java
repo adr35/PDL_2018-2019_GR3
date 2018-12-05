@@ -35,17 +35,17 @@ public class TestFichier {
 		assertTrue("Url ajouté", fichier.addUrl(url));
 	}
 	
-	
+	/**
+	 * Test de la méthode addUrl()
+	 * @return false si le fichier existe déjà
+	 * @throws Exception
+	 */
 	@Test
 	public void TestAdd2() throws Exception {
 		assertTrue(fichier.addUrl(url));
 		assertFalse("Url ne peux pas s'ajouter", fichier.addUrl(url));
 	}
 	
-	/*@Test
-	public void TestAdd3() throws Exception {
-		assertFalse("Url n'existe pas", fichier.addUrl(urlfalse));
-	}*/
 	
 	/**
 	 * Test de la méthode removeUrl()
@@ -56,8 +56,18 @@ public class TestFichier {
 	@Test
 	public void TestRemove() throws Exception {
 		assertTrue(fichier.addUrl(url));
-		assertTrue(fichier.addUrl(url2));
 		assertTrue("Url supprimer", fichier.removeUrl(url));
+	}
+	
+	/**
+	 * Test de la méthode removeUrl()
+	 * Supprime un Url dans un Fichier
+	 * @return false si l'Url n'est pas présent dans le fichier
+	 * @throws Exception
+	 */
+	@Test
+	public void TestRemove2() throws Exception {
+		assertFalse("Url n'est pas présent dans le fichier", fichier.removeUrl(url));
 	}
 	
 	/**
