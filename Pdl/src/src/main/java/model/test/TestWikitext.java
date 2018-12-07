@@ -18,7 +18,7 @@ import src.main.java.model.Url;
  * @author Romiche
  *
  */
-public class TestWikitext extends IOException {
+public class TestWikitext {
 
 	private final Url url = new Url("https://en.wikipedia.org/wiki/Comparison_of_BitTorrent_tracker_software");
 	// final Url url = new
@@ -70,15 +70,15 @@ public class TestWikitext extends IOException {
 	}
 
 	/**
-	 * Test de la méthode wikiNombreLigne()
+	 * Test de la méthode wikiCountLigne()
 	 * @return le nombre de lignes de chaque tableau de la page
 	 * @throws IOException
 	 */
 	@Test
 	public void TestNbLignes() throws IOException {
 		//Méthode à revoir.... car elle split sur les scope=row
-		System.out.println(wikitext.wikiNombreLigne());
-		assertEquals(wikitext.wikiNombreLigne(), 9);
+		System.out.println(wikitext.wikiCountLignes());
+		assertEquals(wikitext.wikiCountLignes(), 9);
 	}
 
 }

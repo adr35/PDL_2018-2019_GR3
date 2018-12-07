@@ -355,7 +355,7 @@ public class FormatWikitext
 	
 	
 	
-	public int wikiNombreLigne() {
+	public int wikiSplitLignes() {
 		int result=0;
 		String[] nbligne = this.wikitext.split("! scope\\=row \\|");
 		result = nbligne.length-1;
@@ -363,6 +363,14 @@ public class FormatWikitext
 	}
 	
 	
+	public int wikiCountLignes() {
+	    Matcher matcher = Pattern.compile("\\|\\-").matcher(wikitext);
+	    int occur = 0;
+	    while(matcher.find()) {
+	        occur ++;
+	    }
+	    return occur;
+}
 	
 	public int wikiCountTabs() {
 	    Matcher matcher = Pattern.compile("wikitable").matcher(wikitext);
