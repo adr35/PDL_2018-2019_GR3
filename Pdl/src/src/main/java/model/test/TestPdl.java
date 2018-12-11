@@ -44,36 +44,31 @@ public class TestPdl extends Thread{
 		 
 }*/
 		 
+				@Test
+				public void testwiki() throws IOException {
+				Url url = new Url("https://en.wikipedia.org/wiki/Comparison_of_Linux_distributions" );
 
-	@Test
-			public void testwiki() throws IOException {
-				Url url = new Url("https://fr.wikipedia.org/w/index.php?title=Internationaux de France de tennis&action=edit");
-				Url url2 = new Url("https://en.wikipedia.org/wiki/Comparison_of_BitTorrent_tracker_software");
-				//https://en.wikipedia.org/wiki/Comparison_of_CRT,_LCD,_and_plasma
-				String HTML2 = url2.HTML();
+				String HTML = url.HTML(); //Récupère le code HTML de la page
+				FormatWikitext newUrl = new FormatWikitext(HTML);
+				newUrl = newUrl.recupererURL();
 				
-				FormatWikitext head = new FormatWikitext(HTML2);
-				FormatWikitext lignes = new FormatWikitext(HTML2);
-				//wikisecondsplit -> wikipremiersplit
-				// HeadtoCSV -> wikiHeadParse -> wikiheadpremiersplit -> splittab 
-				head = head.wikisplit();
-				lignes = lignes.wikisplit();
-				Url urlHead = new Url(head.wikitext);
-				Url urlLignes = new Url(lignes.wikitext);
-				String HTML3 = urlHead.HTML();
-				String HTML4 = urlLignes.HTML();
-				FormatWikitext head2 = new FormatWikitext(HTML3);
-				FormatWikitext lignes2 = new FormatWikitext(HTML4);
-			    head2 = head2.wikiSecondSplit();
-			    lignes2 = lignes2.wikiSecondSplit();
-			    lignes2.ToCSV();
-			    //ProductionCSV prodHead = head2.headToCSV();
-				System.out.println("Tableau entier : ");
-				System.out.println("\n" + "Head : ");
-				System.out.println("Lignes : ");
-				//lignes2 = lignes2.wikiRowPremierSplit();
-				//ProductionCSV prodLignes = lignes2.rowToCSV();
-				//System.out.println(lignes2.wikitext.toString());
+				Url urlFormatWikitext = new Url(newUrl.wikitext); //creer un formatwikitext avec le code source contenant le wikitext
+				String WIKITEXT = urlFormatWikitext.HTML();
+				FormatWikitext newFormatWikitextHead = new FormatWikitext(WIKITEXT);
+				newFormatWikitextHead = newFormatWikitextHead.getTableau();
+				newFormatWikitextHead=newFormatWikitextHead.getHead();
+				/* -> Ici on recupère le head */
+				
+				FormatWikitext newFormatWikitextRow = new FormatWikitext(WIKITEXT);
+				newFormatWikitextRow = newFormatWikitextRow.getTableau();
+				newFormatWikitextRow = newFormatWikitextRow.wikiRowPremierSplit();
+				/* -> Ici on récupère les rows */
+				
+				FormatWikitext t = new FormatWikitext();
+				t.ToCSV(newFormatWikitextHead, newFormatWikitextRow); // on créé un CSV head + rows
+				//System.out.println(newFormatWikitextRow.wikitext);
+				Fichier f = new Fichier();
+
 }
 		
 	
