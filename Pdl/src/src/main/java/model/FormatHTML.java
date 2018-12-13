@@ -20,13 +20,13 @@ import org.jsoup.select.Elements;
  * @generated
  */
 
-public class FormatHTML
+public class FormatHTML extends Thread
 {
 	
 	
 	public String html;
-	private int nbtab;
-	private int tabCourant;
+	private int nbtab = 0;
+	private int tabCourant = 0;
 	
 	public FormatHTML(){
 		this.html = new String();
@@ -46,31 +46,39 @@ public class FormatHTML
 	 * On distingue deux traitements differents,celle de la tete du tableau, et celle du corps.
 	 * <!--  end-user-doc  -->
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 * @generated
 	 * @ordered
 	 */
 	
-	public void ToCSV() throws IOException {
+	public void ToCSV() throws IOException, InterruptedException {
 		String result = "";
 		FormatHTML clone = clone();
-		String[] separateur = clone.html.split("table class=\"wikitable");
-		nbtab = separateur.length -1;
+		String[] separateur = clone.html.split("wikitable");
+		nbtab = separateur.length -1;		
 		String title = getTitle();
+		int nbTabCreate = 0;
 		for(int i = 0; i< nbtab; i++){
-			tabCourant = i +1;
+			tabCourant = i+1;
 			ProductionCSV head = headToCSV();
 			ProductionCSV body = BodyToCSV();
 			result = (head.csv + "\n" +body.csv);
 			ProductionCSV prod = new ProductionCSV(result);
-			prod.generateCSV(title, tabCourant);
+			nbTabCreate += prod.generateCSV(title, tabCourant);
 		}
+		System.out.println("Tab importé : " + nbTabCreate);
+		System.out.println("Tab de la page : " + nbtab);
+	}
+	
+	public int getNbTab() {
+		return this.nbtab;
 	}
 	
 	
 	public String getTitle() {
 		FormatHTML clone = clone();
 		String[] first = clone.html.split("<title>");
-		first = first[1].split("</title>");
+		first = first[1].split("- Wikipedia");
 		return first[0];
 	}
 	
@@ -86,7 +94,7 @@ public class FormatHTML
 	
 	public FormatHTML PremierSplit() {
 		FormatHTML clone = clone();
-		String[] separateur = clone.html.split("table class=\"wikitable");
+		String[] separateur = clone.html.split("wikitable");
 		FormatHTML result = new FormatHTML(separateur[tabCourant]);
 		return result;
 		
@@ -135,6 +143,7 @@ public class FormatHTML
 	
 	
 	public FormatHTML headSplit() {
+		//System.out.println("\n\n\n\n\n\n");
 		FormatHTML html = SecondSplit();
 		html.html = html.html.replaceAll("<tr [^>]*>", "<tr>");
 		String [] separateur = html.html.split("<tr>");
@@ -142,6 +151,9 @@ public class FormatHTML
 		for(int i = 2; i < separateur.length ;i++){
 			if(!separateur[i].contains("<td")){
 				res += "NOUVLIGNE\n" + separateur[i];
+			}
+			else { // sinon on commence le body donc on break (cas ou en-tete en bas du tableau identique a l'entete)
+				break;
 			}
 		}
 		FormatHTML result = new FormatHTML(res);
@@ -159,10 +171,8 @@ public class FormatHTML
 		FormatHTML html = headSplit().clone();
 		String[] numCol = html.html.split("<th [^>]*>");
 		String[] resultConcat = html.html.split("<th [^>]*>");
-		String result = numCol[0];
 		for (int i = 1; i < numCol.length; i++){	
 			String row = numCol[i];
-			String col = numCol[i];
 			String numberRow = "";
 			String numberCol = "";
 			if(row.contains("rowspan=")){
@@ -199,6 +209,8 @@ public class FormatHTML
 	public FormatHTML headParse() {
 		FormatHTML html = getSpan();
 		String replaceString=html.html.replaceAll("<th>","<th>DEBUTDECASE ");
+		replaceString = replaceString.replaceAll("<td[^>]*>","<th>DEBUTDECASE ");
+		replaceString = replaceString.replaceAll("/td>","/th>");
 		//System.out.println(replaceString);
 		FormatHTML result = new FormatHTML(replaceString);
 		Document doc = Jsoup.parse(result.html);
@@ -233,7 +245,7 @@ public class FormatHTML
 				Boolean first = true;
 				String[] modif = span[i].split("row");
 				for(int j = 0; j < modif.length; j++){
-					if(modif[j].length() > 7){ //taille pour svaoir si la ligne est en fait une colonne vide ou non (> 7 == non vide
+					if(modif[j].length() > 7){ //taille pour savoir si la ligne est en fait une colonne vide ou non (> 7 == non vide
 					if(modif[j].startsWith("DBTR")){
 						int number =  Integer.parseInt("" + modif[j].charAt(4));
 						if(first){
@@ -312,18 +324,23 @@ public class FormatHTML
 	 */
 	
 	public FormatHTML BodySplit() {
+		//System.out.println("\n\n\n\n");
 		FormatHTML html = SecondSplit();
-		String[] separateur = html.html.split("<tr>");
+		String[] separateur = html.html.split("<tr[^>]*>");
 		String st ="";
 		FormatHTML result = new FormatHTML(st);
 		FormatHTML result1 = new FormatHTML();
+		//System.out.println(separateur.length);
 		for(int i = 2; i< separateur.length; i++) {
-			separateur[i] = separateur[i].replaceAll("<th [^>]* >", "<td>");
-			separateur[i] = separateur[i].replaceAll("\th>", "\td>");
+			if((separateur[i].contains("<th") && separateur[i].contains("<td")) || (separateur[i].contains("<th") && i == separateur.length -1)){
+				//System.out.println(i);
+				separateur[i] = separateur[i].replaceAll("<th[^>]*>", "<td>");
+				separateur[i] = separateur[i].replaceAll("/th>", "/td>");
+				//System.out.println(separateur[i]);
+			}
 			if(separateur[i].contains("<td>")){
 				st = separateur[i];
 				String replaceString=st.replaceAll("<td[^>]*>","<td>DEBUTDECASE ");
-				
 				String regex = "<img ";
 				String replaceStringImg = replaceString;
 				if(replaceString.contains(regex)) {
@@ -383,7 +400,7 @@ public class FormatHTML
 		FormatHTML result = new FormatHTML();
 		Elements rows = doc.getElementsByTag("a");
 		for(Element row : rows) {
-			System.out.println(row.text());
+			//System.out.println(row.text());
 			Elements cells = row.getElementsByTag("th");
 			result.html += row.text();
 			
@@ -406,12 +423,5 @@ public class FormatHTML
 		FormatHTML clone = new FormatHTML(this.html);
 		return clone;
 	}
-
-	@Override
-	public String toString() {
-		return "FormatHTML [html=" + html + "]";
-	}
-	
-	
 
 }
