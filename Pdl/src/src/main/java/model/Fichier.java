@@ -105,7 +105,7 @@ public class Fichier extends Url {
 					Url.add(new Url("https://en.wikipedia.org/wiki/" + line + "\n"));
 				}		
 				for (Url u : Url) {
-					System.out.println(u.url);
+					//System.out.println(u.url);
 				}				
 				bufferread.close();
 				fileread.close();
@@ -117,30 +117,43 @@ public class Fichier extends Url {
 			System.out.println("Le fichier n'existe pas");
 		}
 	}
-		
-		public void productUrlswithoutsysout() { 
-			
-			
-		}
 
 		
-			public void FichierToHTML() throws IOException {
+			public int FichierToHTML() throws IOException {
+				int nbTabTotal = 0;
 			for(Url u : setUrl) {
-				u.HTML();
+				System.out.println(u.getUrl());
+				nbTabTotal += u.UrlToHTML();
+				System.out.println("nbTabTotal : " + nbTabTotal);
 			}
+			System.out.println("Nombre de tableau importé : " + nbTabTotal);
+			return nbTabTotal;
 		}
 		
 		public void FichierToHTML(int nbUrl) throws IOException {
 			int i = 0;
 			for(Url u : setUrl) {
 				if(i < nbUrl) {
-				u.HTML();
+				
+				u.UrlToHTML();
 				i++;
 				}
 				else
 					break;
 			}
 		}
+		
+		public void ThisUrlToHTML(int numUrl) throws IOException {
+			int i = 0;
+			for(Url u : setUrl) {
+				if(i == numUrl) {
+				u.UrlToHTML();
+				}
+				i++;
+			}
+		}
+		//en.wikipedia.org/wiki/Comparison_of_consumer_brain%C3%A2%E2%82%AC%E2%80%9Ccomputer_interfaces
+
 	
 	
 	
