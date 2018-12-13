@@ -9,9 +9,11 @@ import java.io.InputStream;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 /**
  * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -71,18 +73,18 @@ public class Url {
 			URL urlt = new URL(url);
 			HttpURLConnection connexion = (HttpURLConnection) urlt.openConnection();
 			InputStream flux = connexion.getInputStream();
-			System.out.println("Status de la connexion de " + urlt + ": " + connexion.getResponseMessage());
+			//System.out.println("Status de la connexion de " + urlt + ": " + connexion.getResponseMessage());
 			if (connexion.getResponseCode() == HttpURLConnection.HTTP_OK)
 				// while ((ch = flux.read()) != -1)
 				// System.out.print((char) ch); //Affiche le code HTML de la page
-				System.out.println("--> Url valide");
+				//System.out.println("--> Url valide");
 			flux.close();
 			connexion.disconnect();
 			return true;
 		} catch (Exception e) {
 			System.out.println(e + "\n--> Url non valide");
+			return false;
 		}
-		return false;
 	}
 
 	/**
@@ -112,12 +114,19 @@ public class Url {
 	}
 
 	
-	public void HTML2() throws IOException {
+	public int UrlToHTML() throws IOException {
+		int nbTab = 0;
 		if(isValidUrl()) {
-		Document doc = Jsoup.connect(getUrl()).get();
-		FormatHTML fhtml =new FormatHTML(doc.html());
-		fhtml.ToCSV();
+			try {
+				Document doc = Jsoup.connect(getUrl()).get();
+				FormatHTML fhtml =new FormatHTML(doc.html());
+				fhtml.ToCSV();
+				nbTab = fhtml.getNbTab();
+			} catch(Exception e) {
+				System.out.println(e);
+			}
 		}
+		return nbTab;
 	}
 	
 
@@ -136,9 +145,9 @@ public class Url {
 	
 	
 	/**
-	 * Utilisation de Servelet, un API, pour crï¿½er dynamiquement des donnï¿½es au
-	 * sein d'un serveur HTTP. Ces donnï¿½es sont le plus gï¿½nï¿½ralement
-	 * prï¿½sentï¿½es au format HTML
+	 * Utilisation de Servelet, un API, pour cr�er dynamiquement des donn�es au
+	 * sein d'un serveur HTTP. Ces donn�es sont le plus g�n�ralement
+	 * pr�sent�es au format HTML
 	 * 
 	 * @param requete
 	 * @param reponse
@@ -148,7 +157,7 @@ public class Url {
 	 */
 
 	/*
-	 * URLs courants : public boolean vï¿½rifURL(HttpServletRequest requete,
+	 * URLs courants : public boolean v�rifURL(HttpServletRequest requete,
 	 * HttpServletResponse reponse, Object handler) throws Exception { String url =
 	 * requete.getRequestURL().toString(); requete.setAttribute("urlBySpring", url);
 	 * return true; } public String recup(HttpServletRequest request) { String url =
@@ -156,4 +165,3 @@ public class Url {
 	 */
 
 }
-
