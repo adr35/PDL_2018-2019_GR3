@@ -55,12 +55,12 @@ public class ProductionCSV
 	}
 	
 	public int generateCSV(String title,int numTab) throws IOException {
-		FileWriter fileWriter = new FileWriter("H:/workspacePDL/test/" +title.trim() + "-" + numTab + ".csv");
+		FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + "\\output\\" +title.trim() + "-" + numTab + ".csv");
 		fileWriter.write(this.csv);
 		fileWriter.flush();
 		fileWriter.close();
 		
-		File f = new File("H:/workspacePDL/test/" + title.trim() + "-" + numTab + ".csv");
+		File f = new File(System.getProperty("user.dir") + "\\output\\" + title.trim() + "-" + numTab + ".csv");
 		if(f.exists()){
 			return 1;
 		}
@@ -90,3 +90,4 @@ public class ProductionCSV
 	}
 
 }
+

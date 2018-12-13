@@ -114,14 +114,15 @@ public class Url {
 	}
 
 	
-	public int UrlToHTML() throws IOException {
-		int nbTab = 0;
+	public int[] UrlToHTML() throws IOException {
+		int [] nbTab = new int[2];
 		if(isValidUrl()) {
 			try {
 				Document doc = Jsoup.connect(getUrl()).get();
 				FormatHTML fhtml =new FormatHTML(doc.html());
 				fhtml.ToCSV();
-				nbTab = fhtml.getNbTab();
+				nbTab[0] = fhtml.getNbTab();
+				nbTab[1] = fhtml.getNbTabSucces();
 			} catch(Exception e) {
 				System.out.println(e);
 			}
@@ -165,3 +166,4 @@ public class Url {
 	 */
 
 }
+
