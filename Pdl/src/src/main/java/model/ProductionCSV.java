@@ -1,5 +1,6 @@
 package src.main.java.model;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -53,11 +54,19 @@ public class ProductionCSV
 		
 	}
 	
-	public void generateCSV(String title,int numTab) throws IOException {
-		FileWriter fileWriter = new FileWriter(title.trim() + "-" + numTab + ".csv");
+	public int generateCSV(String title,int numTab) throws IOException {
+		FileWriter fileWriter = new FileWriter("H:/workspacePDL/test/" +title.trim() + "-" + numTab + ".csv");
 		fileWriter.write(this.csv);
 		fileWriter.flush();
 		fileWriter.close();
+		
+		File f = new File("H:/workspacePDL/test/" + title.trim() + "-" + numTab + ".csv");
+		if(f.exists()){
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	
@@ -81,4 +90,3 @@ public class ProductionCSV
 	}
 
 }
-
