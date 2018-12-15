@@ -160,55 +160,75 @@ public class FormatWikitext
 
 	//<th[^>]*>
 	/**************************DEBUT TRAVAIL SUR LIGNES *********************/
-	public FormatWikitext wikiRowPremierSplit() {
-		FormatWikitext result = new FormatWikitext();
-		String[] separateur = this.wikitext.split("\\|\\-");
-		ArrayList<String> list = new ArrayList<String>();
-		
-		for (int i = 0; i < separateur.length; i++) {
+	public FormatWikitext getRow() {
+		FormatWikitext fw = getTableau();
+		String[] separateur = fw.wikitext.split("\\|\\-");
+		ArrayList <String> list = new ArrayList<String>(); //on ajoute les séparateurs dans la liste pour remove ce qu'il y a en trop
+		for(int i=0 ; i<separateur.length;i++) {
 			list.add(separateur[i]);
 		}
-		
-		if(separateur[0].contains("class")) {
-			list.remove(0);
-			list.remove(0);
-		}
-		
-		else {
+		/** List = separateur, on travaille donc uniquement sur la liste à partir de maintenant**/
+
+		if(list.get(0).contains("class=")) {
 			list.remove(0);
 		}
-		
-		String[] lignes = new String[list.size()];
+		if(list.get(0).contains("!")) {
+			list.remove(0);
+		}
 
-		String nb_elems = separateur[1];
-		int nbelements = nb_elems.split("[\n]").length-1;
+		int nb_elements = list.get(1).split("[\n]").length-1;
+		ArrayList<String>ligne = new ArrayList<String>();
+		boolean traitement = vautLaPeine(list);
+		System.out.println(list);
+		if(traitement) {
+			for(int i=0; i<list.size();i++) {
+				String[]sep = list.get(i).split("[\n]");
 
-		String[] elements = new String[nbelements];
-		
-		for(int i=0; i<list.size();i++) {
-			lignes[i] = list.get(i);
-			for(int j=0; j<nbelements;j++) {
-				String[] split = lignes[i].split("\n");
-				elements[j] = split[j+1];
-				if(elements[j].contains(",")) { //si il y a des virgules dans le txt on les supprime
-					elements[j] = elements[j].replaceAll(",", " ");
+				for(int j=0;j<nb_elements;j++) {
+
+					/** ON TRAITE TOUT LES CARACTERE SPECIAUX **/
+					sep[j+1] = sep[j+1].replaceAll(",", "");
+					sep[j+1] = sep[j+1].replaceAll("ref&gt;[^>]*/ref&gt;", "");
+					sep[j+1] = sep[j+1].replaceAll("&lt;ref[^>]*/ref&gt;", "");
+					sep[j+1] = sep[j+1].replaceAll("&lt;", "");
+					sep[j+1] = sep[j+1].replaceAll("&lt;", "");
+					sep[j+1] = sep[j+1].replaceAll("&gt;", "");
+					sep[j+1] = sep[j+1].replaceAll("align=\"left\"", "");
+					sep[j+1] = sep[j+1].replaceAll("br/&gt;", "");
+					sep[j+1] = sep[j+1].replaceAll("&lt;br/&gt;", "");
+					sep[j+1] = sep[j+1].replaceAll("&lt;ref&gt;", "");
+					sep[j+1] = sep[j+1].replaceAll("&lt;br /&gt;", "");
+					sep[j+1] = sep[j+1].replaceAll("br /&gt;", "");
+					sep[j+1] = sep[j+1].replaceAll("&amp;nbsp;", "");
+					sep[j+1] = sep[j+1].replaceAll("&amp", "");
+
+
+					sep[j+1] = sep[j+1].replaceAll("[^\\wâäÀÂéèêëÈÊËìîïÌÏÎòöôÒÖÔùüûÙÜÛ!#$€%&'`();:/@...]", " ");
+
+
+
+
+
+					ligne.add(sep[j+1]);
+					ligne.add(",");
 				}
-				if(elements[j].contains("&lt;")) {
-					elements[j] = elements[j].replaceAll("&lt[^>]*ref", "");
-					elements[j] = elements[j].replaceAll("name[^>]*/", "");
-					elements[j] = elements[j].replaceAll("&gt;", "");
-					//elements[j] = elements[j].replaceAll("&lt.*ref>", "");
-
-				}
-				elements[j] = elements[j].replaceAll("[^\\wàâäÄÀÂéèêëÈÊËìîïÌÏÎòöôÒÖÔùüûÙÜÛç!#$€%&'`(),;:/@...]", " ");
-				elements[j] = elements[j].replaceAll("!", "");
-
-				result.wikitext += elements[j] + ",";
+				ligne.add("\n");
 			}
-			result.wikitext = result.wikitext + "\n";
+			String[]tableau = new String[list.size()];
+			tableau = ligne.toArray(tableau);
+
+
+
+			for(int i=0; i<tableau.length;i++) {
+				System.out.print(tableau[i]);
+			}
 		}
-		return result;
-	}
+		else {
+			fw.wikitext="Tableau hors catégorie";
+		}
+		System.out.println(traitement);
+			return fw;
+		}
 
 	public ProductionCSV rowToCSV(FormatWikitext fw) {
 		FormatWikitext wikitext = fw;
