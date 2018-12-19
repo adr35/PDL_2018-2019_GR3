@@ -32,26 +32,7 @@ public class ProductionCSV
 	 * @generated
 	 * @ordered
 	 */
-		public void Production (FormatHTML html) throws IOException
-	{
-		 try {
-		Scanner sc = new Scanner(System.in);	 
-	        String FILE_NAME = sc.nextLine();
-		sc.close();
-		
-	    FileWriter writer = new FileWriter(FILE_NAME+".csv");
-		  
-		  writer.write("TEST,TEST,TEST");
-		  writer.close();
-		
-		  System.out.println("Fichier CSV bien enregistré !");
-		 }
-		 catch (IOException e) {
-		        e.getStackTrace();
-		 
-		 }
-		//Production du fichier CSV à partir du format HTML
-		
+
 	}
 	
 	public int generateCSV(String title,int numTab) throws IOException {
