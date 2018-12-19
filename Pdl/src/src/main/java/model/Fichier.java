@@ -129,7 +129,7 @@ public class Fichier extends Url {
 				tabTraite[1] += tabThisUrlTraite[1]; 
 			}
 			
-			File repertoire = new File(System.getProperty("user.dir") + "\\output\\");
+			File repertoire = new File(System.getProperty("user.dir") + "\\output\\html");
 			int nbFile = repertoire.listFiles().length;
 			System.out.println("Nombre de tableau trouvés : " + tabTraite[0]);
 			System.out.println("Nombre de tableau importé avec succès : " + tabTraite[1]);
@@ -138,7 +138,18 @@ public class Fichier extends Url {
 			return tabTraite;
 			
 		}
-		
+			
+			public void FichierToWikitext() throws IOException {
+				for(Url u : setUrl) {
+					String st = u.HTML();
+					if(st != null){
+						FormatWikitext fw = new FormatWikitext(st);
+						fw.ToCSV();
+					}
+				}
+			}
+			
+			
 		public void FichierToHTML(int nbUrl) throws IOException {
 			int i = 0;
 			int[] tabTraite = new int[2];

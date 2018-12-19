@@ -366,7 +366,7 @@ public class FormatWikitext
 			ProductionCSV body = rowToCSV();
 			result = (head.csv + "\n" +body.csv);
 			ProductionCSV prod = new ProductionCSV(result);
-			prod.generateCSV(title, tabCourant);
+			prod.generateCSVFromWikitext(title, tabCourant);
 			System.out.println("Fichier créé avec succès.");
 		}
 	}

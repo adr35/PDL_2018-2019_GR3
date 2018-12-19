@@ -67,7 +67,7 @@ public class FormatHTML extends Thread
 				if(!body.csv.contains("NEPASTRAITER")){
 				result = (head.csv + "\n" +body.csv);
 				ProductionCSV prod = new ProductionCSV(result);
-				nbTabCreate += prod.generateCSV(title, tabCourant);
+				nbTabCreate += prod.generateCSVFromHtml(title, tabCourant);
 				this.nbtabSucces ++;
 				}
 			}

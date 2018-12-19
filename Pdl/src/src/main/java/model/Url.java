@@ -87,32 +87,6 @@ public class Url {
 		}
 	}
 
-	/**
-	 * <!-- begin-user-doc --> Renvoie le code HTML de l'url contenant le wikitext
-	 * <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-	
-	public FormatWikitext ToWikitext(Url parameter) {
-		// TODO implement me
-		return null;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> Renvoie le code HTML de l'url courant <!--
-	 * end-user-doc -->
-	 * 
-	 * @generated
-	 * @ordered
-	 */
-
-	public FormatHTML ToHTML(Url parameter) {
-		// TODO implement me
-		return null;
-	}
-
 	
 	public int[] UrlToHTML() throws IOException {
 		int [] nbTab = new int[2];
@@ -132,8 +106,11 @@ public class Url {
 	
 
 	public String HTML() throws IOException {
+		if(isValidUrl()) {
 		Document doc = Jsoup.connect(getUrl()).get();
 		return doc.html();
+		}
+		else return null;
 	}
 
 
