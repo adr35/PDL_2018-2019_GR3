@@ -43,6 +43,32 @@ public class TestPdl extends Thread{
 		 assertEquals("", test.html, "");
 		 
 }*/
+	
+			 @Test
+		 public void testHtml1() throws IOException, InterruptedException {
+			 Url url = new Url("https://fr.wikipedia.org/wiki/Coupe_du_monde_de_football");
+			 String HTML = url.HTML();
+			 FormatHTML ht = new FormatHTML(HTML);
+			 assertEquals(ht.getNbTab(),7);
+			 ht.ToCSV();
+			
+			// System.out.println(ht.html);
+			 
+			 
+		 }
+		 
+			 
+			 @Test
+			 public void testHtml2() throws IOException, InterruptedException {
+				 Url url = new Url("https://fr.wikipedia.org/wiki/Liste_des_présidents_des_États-Unis");
+				 String HTML = url.HTML();
+				 FormatHTML ht = new FormatHTML(HTML);
+				 assertEquals(ht.getNbTab(),1);
+				 ht.ToCSV();
+				
+				 
+				 
+			 }
 		 
 				@Test
 				public void testwiki() throws IOException {
