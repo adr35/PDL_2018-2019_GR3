@@ -14,6 +14,35 @@ import src.main.java.model.Url;
  * @author Romiche
  *
  */
+
+@Test
+	public void testwiki() throws IOException {
+		
+		Url url = new Url("https://en.wikipedia.org/wiki/Comparison_of_alphabetic_country_codes" );
+
+		String HTML = url.HTML(); //Récupère le code HTML de la page
+		FormatWikitext newUrl = new FormatWikitext(HTML);
+		newUrl = newUrl.recupererURL();
+
+		Url urlFormatWikitext = new Url(newUrl.wikitext); //creer un formatwikitext avec le code source contenant le wikitext
+		String WIKITEXT = urlFormatWikitext.HTML();
+		FormatWikitext newFormatWikitextHead = new FormatWikitext(WIKITEXT);
+		//newFormatWikitextHead.allTabs();
+		//newFormatWikitextHead = newFormatWikitextHead.getTableau();
+		newFormatWikitextHead.getHead1();
+			//newFormatWikitextHead=newFormatWikitextHead.getHead();
+			/* -> Ici on recupère le head */
+
+			FormatWikitext newFormatWikitextRow = new FormatWikitext(WIKITEXT);
+			newFormatWikitextRow = newFormatWikitextRow.getRow();
+			//newFormatWikitextRow = newFormatWikitextRow.wikiRowPremierSplit();
+			/* -> Ici on récupère les rows */
+
+			//newFormatWikitextHead.ToCSV(); // on créé un CSV head + rows
+		//System.out.println(newFormatWikitextRow.wikitext);
+		Fichier f = new Fichier();
+
+	}
 public class TestPdl extends Thread{
 
 	final Url url = new Url("https://fr.wikipedia.org/wiki/Coupe du monde de football");
