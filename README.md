@@ -6,6 +6,8 @@ puis déziper le fichier
 
 à l'aide de l'invite de commande aller dans le répertoire contenant le fichier pom.xml du projet
 
+(Nécessite Maven 3.6.0)
+
 Taper mvn package
 
 (Si Le build affiche une erreur, réessayer une nouvelle fois)
