@@ -22,8 +22,8 @@ public class FormatWikitext
 {
 
 	public String wikitext;
-	public List<Character> urlTitle = new ArrayList<>();
-	public String urlfinal;
+	public ArrayList<Character> urlTitle = new ArrayList<Character>();
+	public String urlfinal = new String("");
 	public int nbcolonnes;
 	public int nblignes;
 	public int nbtab;
@@ -128,33 +128,6 @@ public class FormatWikitext
 		return true;
 	}*/
 
-	/******************* DEBUT DU HEAD *****************************/
-	public FormatWikitext getHead1() {
-		FormatWikitext fw = getTableau();
-		String[]separateur = fw.wikitext.split("\\|-");
-		ArrayList<String> list = new ArrayList<>(Arrays.asList(separateur));
-		if(!list.get(0).contains("!")) {
-			list.remove(0);
-		}
-		String[]separateur2 = list.get(0).split("[\n]");
-		if(separateur2[0].contains("wikitable")) {
-			list.clear();
-			for(int i=1;i<separateur2.length;i++) {
-				separateur2[i] = separateur2[i].replaceAll("!!", "!");
-				separateur2[i] = separateur2[i].replaceAll(",", "");
-				list.add(separateur2[i]);
-			}
-		}
-		String[] result = new String[list.size()];
-		result = list.toArray(result);
-		FormatWikitext resultat = new FormatWikitext();
-		for(int i=0;i<result.length;i++) {
-			resultat.wikitext += result[i];
-		}
-
-		System.out.println(resultat);
-		return resultat;
-	}
 
 
 	/**
@@ -167,9 +140,11 @@ public class FormatWikitext
 	 */
 	public FormatWikitext getHead() {
 		FormatWikitext fw = getTableau();
+		String listString="";
 		String[]separateur = fw.wikitext.split("\\|\\-");
 		String[]tabfinal = new String[separateur.length];
 		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> list2 = new ArrayList<String>();
 		if(separateur[0].contains("!")) { /* cas spécial rencontré */
 			for(int i=0; i<separateur.length;i++) {
 				list.add(separateur[i]); //Si le premier split contiens des "!" qui représente une colonne, alors on l'ajoute dans la liste !
@@ -182,6 +157,38 @@ public class FormatWikitext
 		}
 		tabfinal = list.toArray(tabfinal); //Converti la liste (qui contient le tableau entier, spliter sur les |--) en tableau
 		String head = tabfinal[0];
+
+		if(head.contains("align")) {
+			String[] sep = tabfinal[0].split("!");
+			head = sep[1];
+			String[]sep2 = head.split("\\|\\|");
+			
+			for(int i=0;i<sep2.length;i++) {
+				sep2[i] = sep2[i].replaceAll("ref&gt;[^>]*/ref&gt;", "");
+				sep2[i] = sep2[i].replaceAll("&lt;ref[^>]*/ref&gt;", "");
+				sep2[i] = sep2[i].replaceAll("&lt;", "");
+				sep2[i] = sep2[i].replaceAll("&gt;", "");
+				sep2[i] = sep2[i].replaceAll("br/&gt;", "");
+				sep2[i] = sep2[i].replaceAll("&lt;br/&gt;", "");
+				sep2[i] = sep2[i].replaceAll("&lt;ref&gt;", "");
+				sep2[i] = sep2[i].replaceAll("&lt;br /&gt;", "");
+				sep2[i] = sep2[i].replaceAll("br /&gt;", "");
+				sep2[i] = sep2[i].replaceAll("&amp;nbsp;", "");
+				sep2[i] = sep2[i].replaceAll("&amp", "");
+
+
+				//sep2[i] = sep2[i].replaceAll("[^\\wâäÀÂéèêëÈÊËìîïÌÏÎòöôÒÖÔùüûÙÜÛ!#$€%&'`();:/@...]", " ");
+				list2.add(sep2[i]+",");
+			}
+			for(String s : list2) {
+				listString += s;
+			}
+			FormatWikitext result = new FormatWikitext();
+			result.wikitext = listString;
+			return result;
+		}
+		
+		
 		this.nbcolonnes = head.split("!").length-1;
 		String[]separateur1 = head.split("!");
 		String[]tabfinal1 = new String[nbcolonnes];
@@ -195,7 +202,6 @@ public class FormatWikitext
 		}
 		FormatWikitext result = new FormatWikitext(Arrays.toString(tabfinal1));
 		result.wikitext = result.wikitext.replaceAll("[^\\wàâäÄÀÂéèêëÈÊËìîïÌÏÎòöôÒÖÔùüûÙÜÛç!#$€%&'`(),;:/@...]", " "); //enlève les corchets en trop
-		System.out.println(result);
 		return result;
 	}
 
@@ -222,14 +228,15 @@ public class FormatWikitext
 		return true;
 	}
 
-	public List<String> addRetourLignetoRow(List<String> list){
-		ArrayList<String> resultat = new ArrayList<>();
+	public ArrayList<String> addRetourLignetoRow(ArrayList<String> list){
+		ArrayList<String> resultat = new ArrayList<String>();
 		String[] result = new String[list.size()];
 		for(int i=0; i<list.size();i++) {
 			String[]separateur = list.get(i).split("\\|\\|");
+			result[i] = "";
 			for(int j=0; j<separateur.length;j++) {
-				separateur[j] = separateur[j] + "\n";
-				result[i] += separateur[j];	
+				separateur[j] = separateur[j];
+				result[i] = result[i] + separateur[j] + "\n";	
 			}
 			resultat.add(result[i]);
 		}
@@ -240,10 +247,13 @@ public class FormatWikitext
 	public FormatWikitext getRow() {
 		FormatWikitext fw = getTableau();
 		String[] separateur = fw.wikitext.split("\\|\\-");
-		List <String> list = new ArrayList<>(); //on ajoute les séparateurs dans la liste pour remove ce qu'il y a en trop
+		ArrayList <String> list = new ArrayList<String>(); //on ajoute les séparateurs dans la liste pour remove ce qu'il y a en trop
 		for(int i=0 ; i<separateur.length;i++) {
+			separateur[i] = separateur[i].replaceAll("align=right", "");
+			separateur[i] = separateur[i].replaceAll("align=left", "");
 			list.add(separateur[i]);
 		}
+		
 		/** List = separateur, on travaille donc uniquement sur la liste à partir de maintenant**/
 
 		if(list.get(0).contains("class=")) {
@@ -255,16 +265,22 @@ public class FormatWikitext
 		if(isNullOrEmpty(list.get(0))) {
 			list.remove(0);
 		}
+		
+		if(list.get(0).contains("align")) {
+			list.remove(0);
+		}
+
 		list = addRetourLignetoRow(list);
 
-		int nb_elements = list.get(0).split("[\n]").length-1;
-		List<String>ligne = new ArrayList<>();
+		int nb_elements = list.get(0).split("[\n]").length-2;
+
+		ArrayList<String>ligne = new ArrayList<String>();
 
 		for(int i=0; i<list.size();i++) {
 			String[]sep = list.get(i).split("[\n]");
 
 			for(int j=0;j<nb_elements;j++) { //on parcours chaque élément de la ligne
-
+				
 				/** ON TRAITE TOUT LES CARACTERE SPECIAUX **/
 				sep[j+1] = sep[j+1].replaceAll(",", "");
 				sep[j+1] = sep[j+1].replaceAll("ref&gt;[^>]*/ref&gt;", "");
@@ -283,7 +299,7 @@ public class FormatWikitext
 				sep[j+1] = sep[j+1].replaceAll("Color[^>]*darkgray", "");
 
 
-				sep[j+1] = sep[j+1].replaceAll("[^\\wâäÀÂéèêëÈÊËìîïÌÏÎòöôÒÖÔùüûÙÜÛ!#$€%&'`();:/@...]", " ");
+				//sep[j+1] = sep[j+1].replaceAll("[^\\wâäÀÂéèêëÈÊËìîïÌÏÎòöôÒÖÔùüûÙÜÛ!#$€%&'`();:/@...]", " ");
 
 
 
@@ -302,12 +318,11 @@ public class FormatWikitext
 		for(int i=0; i<tableau.length;i++) {
 			System.out.print(tableau[i]);
 		}
-
 		return fw;
 	}
 
-	public List<String> deletealtref(List<String> list){
-		ArrayList<String> l = new ArrayList<>();
+	/*public ArrayList<String> deletealtref(ArrayList<String> list){
+		ArrayList<String> l = new ArrayList<String>();
 		String[] copie = new String[list.size()];
 		for(int i =0; i<list.size();i++) {
 			if(list.get(i).contains("ref")) {
@@ -318,7 +333,7 @@ public class FormatWikitext
 			}
 		}
 		return l;
-	}
+	}*/
 
 
 
@@ -366,7 +381,7 @@ public class FormatWikitext
 			ProductionCSV body = rowToCSV();
 			result = (head.csv + "\n" +body.csv);
 			ProductionCSV prod = new ProductionCSV(result);
-			prod.generateCSVFromWikitext(title, tabCourant);
+			prod.generateCSV(title, tabCourant);
 			System.out.println("Fichier créé avec succès.");
 		}
 	}
