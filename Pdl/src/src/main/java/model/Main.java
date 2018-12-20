@@ -1,3 +1,4 @@
+package src.main.java.model;
 import java.io.IOException;
 
 import src.main.java.model.*;
