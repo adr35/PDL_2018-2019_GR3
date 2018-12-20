@@ -133,10 +133,8 @@ public class FormatWikitext
 				String[]separateur2 = tabfinal1[i].split("\\|");
 				tabfinal1[i] = separateur2[1];
 			}
-			tabfinal1[i] = tabfinal1[i].replaceAll("[^\\wÃ Ã¢Ã¤Ã„Ã€Ã‚Ã©Ã¨ÃªÃ«ÃˆÃŠÃ‹Ã¬Ã®Ã¯ÃŒÃ�ÃŽÃ²Ã¶Ã´Ã’Ã–Ã”Ã¹Ã¼Ã»Ã™ÃœÃ›Ã§!#$â‚¬%&'`(),;:/@...]", " ");
 		}
 		FormatWikitext result = new FormatWikitext(Arrays.toString(tabfinal1));
-		result.wikitext = result.wikitext.replaceAll("[^\\wÃ Ã¢Ã¤Ã„Ã€Ã‚Ã©Ã¨ÃªÃ«ÃˆÃŠÃ‹Ã¬Ã®Ã¯ÃŒÃ�ÃŽÃ²Ã¶Ã´Ã’Ã–Ã”Ã¹Ã¼Ã»Ã™ÃœÃ›Ã§!#$â‚¬%&'`(),;:/@...]", " "); //enlÃ¨ve les corchets en trop
 		return result;
 	}
 
