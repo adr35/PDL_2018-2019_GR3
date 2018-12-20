@@ -44,8 +44,8 @@ public class TestWikitext {
 	 * @throws IOException
 	 */
 	@Test
-	public void TestNewUrl() throws IOException {
-		wikitext = wikitext.wikisplit();
+	public void TestNewUrl() {
+		wikitext = wikitext.recupererURL();
 		assertEquals(wikitext.wikitext.toString(),
 				"https://en.wikipedia.org/w/index.php?title=Comparison of BitTorrent tracker software&action=edit");
 	}
@@ -65,7 +65,7 @@ public class TestWikitext {
 	 * @throws IOException
 	 */
 	@Test
-	public void TestNbTableaux() throws IOException {
+	public void TestNbTableaux() {
 		assertEquals(wikitext.wikiCountTabs(), 1);
 	}
 
@@ -77,8 +77,8 @@ public class TestWikitext {
 	@Test
 	public void TestNbLignes() throws IOException {
 		//Méthode à revoir.... car elle split sur les scope=row
-		System.out.println(wikitext.wikiCountLignes());
-		assertEquals(wikitext.wikiCountLignes(), 9);
+		System.out.println(wikitext.nblignes);
+		assertEquals(wikitext.nblignes, 9);
 	}
 
 }

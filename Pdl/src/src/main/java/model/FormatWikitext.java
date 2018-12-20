@@ -22,8 +22,8 @@ public class FormatWikitext
 {
 
 	public String wikitext;
-	public ArrayList<Character> urlTitle = new ArrayList<>();
-	public String urlfinal = new String("");
+	public List<Character> urlTitle = new ArrayList<>();
+	public String urlfinal;
 	public int nbcolonnes;
 	public int nblignes;
 	public int nbtab;
@@ -222,8 +222,8 @@ public class FormatWikitext
 		return true;
 	}
 
-	public ArrayList<String> addRetourLignetoRow(ArrayList<String> list){
-		ArrayList<String> resultat = new ArrayList<String>();
+	public List<String> addRetourLignetoRow(List<String> list){
+		ArrayList<String> resultat = new ArrayList<>();
 		String[] result = new String[list.size()];
 		for(int i=0; i<list.size();i++) {
 			String[]separateur = list.get(i).split("\\|\\|");
@@ -240,7 +240,7 @@ public class FormatWikitext
 	public FormatWikitext getRow() {
 		FormatWikitext fw = getTableau();
 		String[] separateur = fw.wikitext.split("\\|\\-");
-		ArrayList <String> list = new ArrayList<String>(); //on ajoute les séparateurs dans la liste pour remove ce qu'il y a en trop
+		List <String> list = new ArrayList<>(); //on ajoute les séparateurs dans la liste pour remove ce qu'il y a en trop
 		for(int i=0 ; i<separateur.length;i++) {
 			list.add(separateur[i]);
 		}
@@ -258,7 +258,7 @@ public class FormatWikitext
 		list = addRetourLignetoRow(list);
 
 		int nb_elements = list.get(0).split("[\n]").length-1;
-		ArrayList<String>ligne = new ArrayList<String>();
+		List<String>ligne = new ArrayList<>();
 
 		for(int i=0; i<list.size();i++) {
 			String[]sep = list.get(i).split("[\n]");
@@ -306,8 +306,8 @@ public class FormatWikitext
 		return fw;
 	}
 
-	public ArrayList<String> deletealtref(ArrayList<String> list){
-		ArrayList<String> l = new ArrayList<String>();
+	public List<String> deletealtref(List<String> list){
+		ArrayList<String> l = new ArrayList<>();
 		String[] copie = new String[list.size()];
 		for(int i =0; i<list.size();i++) {
 			if(list.get(i).contains("ref")) {
