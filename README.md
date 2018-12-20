@@ -12,4 +12,4 @@ Une fois le build terminé,
 
 taper  java -cp target/PDL_2018-2019_GR3-0.0.1-SNAPSHOT.jar src.main.java.model.Main
 
-Les fichier csv devraient se trouver dans les répertoires output/html et output/wikiext.
+Les fichier csv devraient se trouver dans les répertoires output/html et output/wikitext.
