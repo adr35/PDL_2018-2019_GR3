@@ -38,7 +38,7 @@ public class Fichier extends Url {
 		this.setUrl = setUrl;
 	}
 
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * 
@@ -61,7 +61,7 @@ public class Fichier extends Url {
 		return this.setUrl.add(url);
 	}
 
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * 
@@ -77,7 +77,7 @@ public class Fichier extends Url {
 		}
 		return false;
 	}
-	
+
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -91,7 +91,7 @@ public class Fichier extends Url {
 	 * 
 	 * @generated
 	 */
-		public void productUrls() { 
+	public void productUrls() { 
 		try {
 			File fichier = new File("wikiurls");
 			FileReader fileread = new FileReader(fichier);
@@ -117,110 +117,113 @@ public class Fichier extends Url {
 			System.out.println("Le fichier n'existe pas");
 		}
 	}
-		
-		
-		public void productUrlsWikitext() { 
+
+
+	public void productUrlsWikitext() { 
+		try {
+			File fichier = new File("wikiurls");
+			FileReader fileread = new FileReader(fichier);
+			BufferedReader bufferread = new BufferedReader(fileread);
+			Set<Url> Url = new HashSet<Url>();
 			try {
-				File fichier = new File("wikiurls");
-				FileReader fileread = new FileReader(fichier);
-				BufferedReader bufferread = new BufferedReader(fileread);
-				Set<Url> Url = new HashSet<Url>();
-				try {
-					String line = bufferread.readLine();
-					while (line != null) {
-						// System.out.println(line);
-						line = bufferread.readLine();
-						Url.add(new Url("https://en.wikipedia.org/w/index.php?title=" + line + "&action=edit"));
-					}		
-					for (Url u : Url) {
-						//System.out.println(u.url);
-					}				
-					bufferread.close();
-					fileread.close();
-					this.setUrl = Url;
-				} catch (IOException exception) {
-					System.out.println("Erreur de la lecture : " + exception.getMessage());
-				}
-			} catch (FileNotFoundException exception) {
-				System.out.println("Le fichier n'existe pas");
+				String line = bufferread.readLine();
+				while (line != null) {
+					// System.out.println(line);
+					line = bufferread.readLine();
+					Url.add(new Url("https://en.wikipedia.org/w/index.php?title=" + line + "&action=edit"));
+				}		
+				for (Url u : Url) {
+					//System.out.println(u.url);
+				}				
+				bufferread.close();
+				fileread.close();
+				this.setUrl = Url;
+			} catch (IOException exception) {
+				System.out.println("Erreur de la lecture : " + exception.getMessage());
 			}
+		} catch (FileNotFoundException exception) {
+			System.out.println("Le fichier n'existe pas");
+		}
+	}
+
+
+	public int[] FichierToHTML() throws IOException {
+		int[] tabTraite = new int[2];
+		for(Url u : setUrl) {
+			int[] tabThisUrlTraite = new int[2];
+			System.out.println("extraction de  : " + u.getUrl());
+			tabThisUrlTraite = u.UrlToHTML();
+			tabTraite[0] += tabThisUrlTraite[0]; 
+			tabTraite[1] += tabThisUrlTraite[1]; 
 		}
 
-		
-			public int[] FichierToHTML() throws IOException {
-				int[] tabTraite = new int[2];
-			for(Url u : setUrl) {
+		File repertoire = new File(System.getProperty("user.dir") + "\\output\\html");
+		int nbFile = repertoire.listFiles().length;
+		System.out.println("Nombre de tableau trouves : " + tabTraite[0]);
+		System.out.println("Nombre de tableau importe avec succes : " + tabTraite[1]);
+		System.out.println("Nombre de tableau importe en double : " + (tabTraite[1] - nbFile));
+		System.out.println("Nombre de tableau non importe : " + (tabTraite[0] - tabTraite[1]));
+		return tabTraite;
+
+	}
+
+	public void FichierToWikitext() throws IOException {
+		int i=0;
+		for(Url u : this.setUrl) {
+			String HTML = u.HTML(); 
+			if(HTML != null){
+				FormatWikitext fw = new FormatWikitext(HTML);
+				fw.ToCSV();
+				System.out.println("page " + i + " en cours de traitement");
+				i++;
+			}
+		}
+	}
+
+
+	public void FichierToHTML(int nbUrl) throws IOException {
+		int i = 0;
+		int[] tabTraite = new int[2];
+		for(Url u : setUrl) {
+			if(i < nbUrl) {
 				int[] tabThisUrlTraite = new int[2];
 				System.out.println("extraction de  : " + u.getUrl());
 				tabThisUrlTraite = u.UrlToHTML();
 				tabTraite[0] += tabThisUrlTraite[0]; 
 				tabTraite[1] += tabThisUrlTraite[1]; 
-			}
-			
-			File repertoire = new File(System.getProperty("user.dir") + "\\output\\html");
-			int nbFile = repertoire.listFiles().length;
-			System.out.println("Nombre de tableau trouvés : " + tabTraite[0]);
-			System.out.println("Nombre de tableau importé avec succès : " + tabTraite[1]);
-			System.out.println("Nombre de tableau importé en double : " + (tabTraite[1] - nbFile));
-			System.out.println("Nombre de tableau non importé : " + (tabTraite[0] - tabTraite[1]));
-			return tabTraite;
-			
-		}
-			
-			public void FichierToWikitext() throws IOException {
-				for(Url u : setUrl) {
-					String st = u.HTML();
-					if(st != null){
-						FormatWikitext fw = new FormatWikitext(st);
-						fw.ToCSV();
-					}
-				}
-			}
-			
-			
-		public void FichierToHTML(int nbUrl) throws IOException {
-			int i = 0;
-			int[] tabTraite = new int[2];
-			for(Url u : setUrl) {
-				if(i < nbUrl) {
-					int[] tabThisUrlTraite = new int[2];
-					System.out.println("extraction de  : " + u.getUrl());
-					tabThisUrlTraite = u.UrlToHTML();
-					tabTraite[0] += tabThisUrlTraite[0]; 
-					tabTraite[1] += tabThisUrlTraite[1]; 
-				i++;
-				}
-				else
-					break;
-			}
-			System.out.println("Nombre de tableau trouvés : " + tabTraite[0]);
-			System.out.println("Nombre de tableau importé avec succès : " + tabTraite[1]);
-			System.out.println("Nombre de tableau non importé : " + (tabTraite[0] - tabTraite[1]));
-		}
-		
-		public void ThisUrlToHTML(int numUrl) throws IOException {
-			int i = 0;
-			for(Url u : setUrl) {
-				if(i == numUrl) {
-				u.UrlToHTML();
-				}
 				i++;
 			}
+			else
+				break;
 		}
-		//en.wikipedia.org/wiki/Comparison_of_consumer_brain%C3%A2%E2%82%AC%E2%80%9Ccomputer_interfaces
+		System.out.println("Nombre de tableau trouvés : " + tabTraite[0]);
+		System.out.println("Nombre de tableau importé avec succès : " + tabTraite[1]);
+		System.out.println("Nombre de tableau non importé : " + (tabTraite[0] - tabTraite[1]));
+	}
 
-	
-	
-	
-		/**
-		 * <!-- begin-user-doc -->
-		 * Mise en place d'un toString() permettant de renvoyer le contenu d'un fichier 
-		 * Le fichier en question contient des Urls précédemment proposé par l'utilisateur
-		 * Ou pour visualiser simplement le contenu du/des fichier(s) utilisé(s) contenant des String ou direcetment des Urls 
-		 * <!-- end-user-doc -->
-		 * 
-		 * @generated
-		 */
+	public void ThisUrlToHTML(int numUrl) throws IOException {
+		int i = 0;
+		for(Url u : setUrl) {
+			if(i == numUrl) {
+				u.UrlToHTML();
+			}
+			i++;
+		}
+	}
+	//en.wikipedia.org/wiki/Comparison_of_consumer_brain%C3%A2%E2%82%AC%E2%80%9Ccomputer_interfaces
+
+
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Mise en place d'un toString() permettant de renvoyer le contenu d'un fichier 
+	 * Le fichier en question contient des Urls précédemment proposé par l'utilisateur
+	 * Ou pour visualiser simplement le contenu du/des fichier(s) utilisé(s) contenant des String ou direcetment des Urls 
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
 	@Override
 	public String toString() {
 		String result = "[~~~~~~~~~~~~~~~~~~~~~~~~~~~Fichier~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + "\n";

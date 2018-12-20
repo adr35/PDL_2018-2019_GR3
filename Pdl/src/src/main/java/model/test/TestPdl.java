@@ -1,4 +1,4 @@
-package src.main.java.model;
+package src.main.java.model.test;
 import static org.junit.Assert.*;
 
 import java.io.File;
@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import src.main.java.model.*;
 
 
 

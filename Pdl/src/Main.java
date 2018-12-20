@@ -7,7 +7,10 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		Fichier f = new Fichier();
-		f.productUrls();
+		//f.productUrls();
+		//f.FichierToHTML();
+		//f = new Fichier();
+		f.productUrlsWikitext();
 		f.FichierToWikitext();
 	}
 

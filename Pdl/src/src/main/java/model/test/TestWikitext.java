@@ -54,10 +54,10 @@ public class TestWikitext {
 	 * Test général des méthodes wikitext........
 	 * @throws IOException
 	 */
-	@Test
+	/*@Test
 	public void testwiki() throws IOException {
 		wikitext.initialize(url);
-	}
+	}*/
 
 	/**
 	 * Test de la methode wikiCountTabs()
