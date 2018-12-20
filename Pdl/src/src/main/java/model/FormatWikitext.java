@@ -158,16 +158,16 @@ public class FormatWikitext
 		tabfinal = list.toArray(tabfinal); //Converti la liste (qui contient le tableau entier, spliter sur les |--) en tableau
 		String head = tabfinal[0];
 
-		if(head.contains("align")) {
+	/*	if(head.contains("align")) {
 			String[] sep = tabfinal[0].split("!");
 			head = sep[1];
 			String[]sep2 = head.split("\\|\\|");
 			
-			for(int i=0;i<sep2.length;i++) {
-				sep2[i] = sep2[i].replaceAll("ref&gt;[^>]*/ref&gt;", "");
-				sep2[i] = sep2[i].replaceAll("&lt;ref[^>]*/ref&gt;", "");
-				sep2[i] = sep2[i].replaceAll("&lt;", "");
-				sep2[i] = sep2[i].replaceAll("&gt;", "");
+			for(int i=0;i<sep2.length;i++) {*/
+			//	sep2[i] = sep2[i].replaceAll("ref&gt;[^>]*/ref&gt;", "");
+				//sep2[i] = sep2[i].replaceAll("&lt;ref[^>]*/ref&gt;", "");
+				//sep2[i] = sep2[i].replaceAll("&lt;", "");
+			/*	sep2[i] = sep2[i].replaceAll("&gt;", "");
 				sep2[i] = sep2[i].replaceAll("br/&gt;", "");
 				sep2[i] = sep2[i].replaceAll("&lt;br/&gt;", "");
 				sep2[i] = sep2[i].replaceAll("&lt;ref&gt;", "");
@@ -186,7 +186,7 @@ public class FormatWikitext
 			FormatWikitext result = new FormatWikitext();
 			result.wikitext = listString;
 			return result;
-		}
+		}*/
 		
 		
 		this.nbcolonnes = head.split("!").length-1;
@@ -279,7 +279,7 @@ public class FormatWikitext
 		for(int i=0; i<list.size();i++) {
 			String[]sep = list.get(i).split("[\n]");
 
-			for(int j=0;j<nb_elements;j++) { //on parcours chaque élément de la ligne
+			for(int j=1;j<list.get(i).split("[\n]").length-1;j++) { //on parcours chaque élément de la ligne
 				
 				/** ON TRAITE TOUT LES CARACTERE SPECIAUX **/
 				sep[j+1] = sep[j+1].replaceAll(",", "");
@@ -310,15 +310,15 @@ public class FormatWikitext
 			}
 			ligne.add("\n");
 		}
-		String[]tableau = new String[list.size()];
+		String[]tableau = new String[ligne.size()];
 		tableau = ligne.toArray(tableau);
 
 
-
+		FormatWikitext resultat = new FormatWikitext();
 		for(int i=0; i<tableau.length;i++) {
-			System.out.print(tableau[i]);
+			resultat.wikitext += tableau[i];
 		}
-		return fw;
+		return resultat;
 	}
 
 	/*public ArrayList<String> deletealtref(ArrayList<String> list){
@@ -380,9 +380,9 @@ public class FormatWikitext
 			ProductionCSV head = headToCSV();
 			ProductionCSV body = rowToCSV();
 			result = (head.csv + "\n" +body.csv);
-			ProductionCSV prod = new ProductionCSV(result);
-			prod.generateCSV(title, tabCourant);
-			System.out.println("Fichier créé avec succès.");
+			/*ProductionCSV prod = new ProductionCSV(result);
+			prod.generateCSV(title, tabCourant);*/
+			System.out.println(i + " tableaux traités");
 		}
 	}
 
