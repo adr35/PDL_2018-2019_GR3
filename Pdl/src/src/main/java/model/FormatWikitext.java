@@ -22,7 +22,7 @@ public class FormatWikitext
 {
 
 	public String wikitext;
-	public ArrayList<Character> urlTitle = new ArrayList<Character>();
+	public ArrayList<Character> urlTitle = new ArrayList<>();
 	public String urlfinal = new String("");
 	public int nbcolonnes;
 	public int nblignes;
@@ -132,13 +132,13 @@ public class FormatWikitext
 	public FormatWikitext getHead1() {
 		FormatWikitext fw = getTableau();
 		String[]separateur = fw.wikitext.split("\\|-");
-		ArrayList<String> list = new ArrayList<String>(Arrays.asList(separateur));
+		ArrayList<String> list = new ArrayList<>(Arrays.asList(separateur));
 		if(!list.get(0).contains("!")) {
 			list.remove(0);
 		}
 		String[]separateur2 = list.get(0).split("[\n]");
 		if(separateur2[0].contains("wikitable")) {
-			list.removeAll(list);
+			list.clear();
 			for(int i=1;i<separateur2.length;i++) {
 				separateur2[i] = separateur2[i].replaceAll("!!", "!");
 				separateur2[i] = separateur2[i].replaceAll(",", "");

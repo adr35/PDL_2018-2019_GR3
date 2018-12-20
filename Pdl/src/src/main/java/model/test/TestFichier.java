@@ -2,7 +2,6 @@ package src.main.java.model.test;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 
 import org.junit.Test;
 import src.main.java.model.Fichier;
@@ -93,10 +92,12 @@ public class TestFichier {
 	 * Et on test si ils existent ou non
 	 * Enfin, les assert testent si il y a bien 314 Urls valident 
 	 * et 22 non valident grâce à des variables comptants ces validités.
+	 * 
 	 */
 	@Test
 	public void TestReadFile() {
-		int articleOK = 0, articleKO = 0;
+		int articleOK = 0;
+		int articleKO = 0;
 		Wikiurls.productUrls();
 		for (Url url : Wikiurls.setUrl) {
 			if (url.isValidUrl()) {

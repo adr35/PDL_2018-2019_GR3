@@ -3,7 +3,6 @@ package src.main.java.model;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 
 /**
@@ -26,15 +25,13 @@ public class ProductionCSV
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
+	 * 
 	 * Renvoie le CSV sous forme de string
-	 * <!--  end-user-doc  -->
-	 * @generated
+	 * @return 1 si le fichier CSV est créer
+	 * @return 0 sinon
+	 * @generated fichier CSV
 	 * @ordered
 	 */
-
-	
-	
 	public int generateCSVFromHtml(String title,int numTab) throws IOException {
 		FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + "\\output\\html\\" +title.trim() + "-" + numTab + ".csv");
 		fileWriter.write(this.csv);
@@ -50,6 +47,14 @@ public class ProductionCSV
 		}
 	}
 	
+	/**
+	 * 
+	 * Renvoie le CSV sous forme de string
+	 * @return 1 si le fichier CSV est créer
+	 * @return 0 sinon
+	 * @generated fichier CSV
+	 * @ordered
+	 */
 	public int generateCSVFromWikitext(String title,int numTab) throws IOException {
 		FileWriter fileWriter = new FileWriter(System.getProperty("user.dir") + "\\output\\wikitext\\" +title.trim() + "-" + numTab + ".csv");
 		fileWriter.write(this.csv);

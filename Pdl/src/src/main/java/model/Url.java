@@ -1,7 +1,5 @@
 package src.main.java.model;
 
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
 
 
 import java.io.IOException;
@@ -59,12 +57,12 @@ public class Url {
 
 		
 	/**
-	 * <!-- begin-user-doc -->
-	 * Methode booleen qui renvoie vrai si Url est valide
-	 * Et renvoie false si Url n'est pas valide
 	 * 
-	 * <!-- end-user-doc -->
+	 * Methode booleen isValidUrl()
 	 * 
+	 * 
+	 * @return true si Url est valide
+	 * @return false si Url n'est pas valide
 	 * @generated
 	 */
 	public boolean isValidUrl() { 
@@ -119,28 +117,5 @@ public class Url {
 		return "Url [Url=" + Url + "]";
 	}*/
 	
-	
-	
-	
-	/**
-	 * Utilisation de Servelet, un API, pour cr�er dynamiquement des donn�es au
-	 * sein d'un serveur HTTP. Ces donn�es sont le plus g�n�ralement
-	 * pr�sent�es au format HTML
-	 * 
-	 * @param requete
-	 * @param reponse
-	 * @param handler
-	 * @return
-	 * @throws Exception
-	 */
-
-	/*
-	 * URLs courants : public boolean v�rifURL(HttpServletRequest requete,
-	 * HttpServletResponse reponse, Object handler) throws Exception { String url =
-	 * requete.getRequestURL().toString(); requete.setAttribute("urlBySpring", url);
-	 * return true; } public String recup(HttpServletRequest request) { String url =
-	 * request.getRequestURL(); System.out.println(url); }
-	 */
-
 }
 
