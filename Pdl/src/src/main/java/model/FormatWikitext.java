@@ -299,7 +299,7 @@ public class FormatWikitext
 			result = (head.csv + "\n" +body.csv);
 			/*ProductionCSV prod = new ProductionCSV(result);
 			prod.generateCSV(title, tabCourant);*/
-			System.out.println(i + " tableaux traitÃ©s");
+			System.out.println(i+1 + " tableaux traitÃ©s");
 		}
 	}
 
