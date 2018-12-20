@@ -81,19 +81,19 @@ public class Fichier extends Url {
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * Méthode produisant des Urls à partir du fichier "wikiurls.txt"
+	 * MÃ©thode produisant des Urls Ã  partir du fichier "wikiurls.txt"
 	 * En lisant ligne par ligne les String contenus dans le fichier 
 	 * Concat
 	 * Les ajoute dans un nouveau String pour former un Url 
 	 * Et renvoi un ensemble d'Url
-	 * Les exceptions servent si le fichier à tester n'existe pas
+	 * Les exceptions servent si le fichier Ã  tester n'existe pas
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 		public void productUrls() { 
 		try {
-			File fichier = new File("wikiurls.txt");
+			File fichier = new File("wikiurls");
 			FileReader fileread = new FileReader(fichier);
 			BufferedReader bufferread = new BufferedReader(fileread);
 			Set<Url> Url = new HashSet<Url>();
@@ -117,6 +117,34 @@ public class Fichier extends Url {
 			System.out.println("Le fichier n'existe pas");
 		}
 	}
+		
+		
+		public void productUrlsWikitext() { 
+			try {
+				File fichier = new File("wikiurls");
+				FileReader fileread = new FileReader(fichier);
+				BufferedReader bufferread = new BufferedReader(fileread);
+				Set<Url> Url = new HashSet<Url>();
+				try {
+					String line = bufferread.readLine();
+					while (line != null) {
+						// System.out.println(line);
+						line = bufferread.readLine();
+						Url.add(new Url("https://en.wikipedia.org/w/index.php?title=" + line + "&action=edit"));
+					}		
+					for (Url u : Url) {
+						//System.out.println(u.url);
+					}				
+					bufferread.close();
+					fileread.close();
+					this.setUrl = Url;
+				} catch (IOException exception) {
+					System.out.println("Erreur de la lecture : " + exception.getMessage());
+				}
+			} catch (FileNotFoundException exception) {
+				System.out.println("Le fichier n'existe pas");
+			}
+		}
 
 		
 			public int[] FichierToHTML() throws IOException {
@@ -131,10 +159,10 @@ public class Fichier extends Url {
 			
 			File repertoire = new File(System.getProperty("user.dir") + "\\output\\html");
 			int nbFile = repertoire.listFiles().length;
-			System.out.println("Nombre de tableau trouvés : " + tabTraite[0]);
-			System.out.println("Nombre de tableau importé avec succès : " + tabTraite[1]);
-			System.out.println("Nombre de tableau importé en double : " + (tabTraite[1] - nbFile));
-			System.out.println("Nombre de tableau non importé : " + (tabTraite[0] - tabTraite[1]));
+			System.out.println("Nombre de tableau trouvÃ©s : " + tabTraite[0]);
+			System.out.println("Nombre de tableau importÃ© avec succÃ¨s : " + tabTraite[1]);
+			System.out.println("Nombre de tableau importÃ© en double : " + (tabTraite[1] - nbFile));
+			System.out.println("Nombre de tableau non importÃ© : " + (tabTraite[0] - tabTraite[1]));
 			return tabTraite;
 			
 		}
@@ -165,9 +193,9 @@ public class Fichier extends Url {
 				else
 					break;
 			}
-			System.out.println("Nombre de tableau trouvés : " + tabTraite[0]);
-			System.out.println("Nombre de tableau importé avec succès : " + tabTraite[1]);
-			System.out.println("Nombre de tableau non importé : " + (tabTraite[0] - tabTraite[1]));
+			System.out.println("Nombre de tableau trouvÃ©s : " + tabTraite[0]);
+			System.out.println("Nombre de tableau importÃ© avec succÃ¨s : " + tabTraite[1]);
+			System.out.println("Nombre de tableau non importÃ© : " + (tabTraite[0] - tabTraite[1]));
 		}
 		
 		public void ThisUrlToHTML(int numUrl) throws IOException {
@@ -187,8 +215,8 @@ public class Fichier extends Url {
 		/**
 		 * <!-- begin-user-doc -->
 		 * Mise en place d'un toString() permettant de renvoyer le contenu d'un fichier 
-		 * Le fichier en question contient des Urls précédemment proposé par l'utilisateur
-		 * Ou pour visualiser simplement le contenu du/des fichier(s) utilisé(s) contenant des String ou direcetment des Urls 
+		 * Le fichier en question contient des Urls prÃ©cÃ©demment proposÃ© par l'utilisateur
+		 * Ou pour visualiser simplement le contenu du/des fichier(s) utilisÃ©(s) contenant des String ou direcetment des Urls 
 		 * <!-- end-user-doc -->
 		 * 
 		 * @generated
