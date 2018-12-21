@@ -81,20 +81,19 @@ public class Fichier extends Url {
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * Méthode produisant des Urls à partir du fichier "wikiurls.txt"
+	 * MÃ©thode produisant des Urls Ã  partir du fichier "wikiurls.txt"
 	 * En lisant ligne par ligne les String contenus dans le fichier 
 	 * Concat
 	 * Les ajoute dans un nouveau String pour former un Url 
 	 * Et renvoi un ensemble d'Url
-	 * Les exceptions servent si le fichier à tester n'existe pas
+	 * Les exceptions servent si le fichier Ã  tester n'existe pas
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 */
 	public void productUrls() { 
 		try {
-			File fichier = new File("wikiurls");
-			FileReader fileread = new FileReader(fichier);
+			FileReader fileread = new FileReader(System.getProperty("user.dir") + "\\wikiurls.txt");
 			BufferedReader bufferread = new BufferedReader(fileread);
 			Set<Url> Url = new HashSet<Url>();
 			try {
@@ -121,8 +120,7 @@ public class Fichier extends Url {
 
 	public void productUrlsWikitext() { 
 		try {
-			File fichier = new File("wikiurls");
-			FileReader fileread = new FileReader(fichier);
+			FileReader fileread = new FileReader(System.getProperty("user.dir") + "\\wikiurls.txt");;
 			BufferedReader bufferread = new BufferedReader(fileread);
 			Set<Url> Url = new HashSet<Url>();
 			try {
@@ -161,20 +159,21 @@ public class Fichier extends Url {
 		int nbFile = repertoire.listFiles().length;
 		System.out.println("Nombre de tableau trouves : " + tabTraite[0]);
 		System.out.println("Nombre de tableau importe avec succes : " + tabTraite[1]);
-		System.out.println("Nombre de tableau importe en double : " + (tabTraite[1] - nbFile));
+		System.out.println("Nombre de tableau importe en double : " + (tabTraite[1] - nbFile -1 )); // -1 car il y a un fichier de base dans le répertoire
 		System.out.println("Nombre de tableau non importe : " + (tabTraite[0] - tabTraite[1]));
 		return tabTraite;
 
 	}
 
 	public void FichierToWikitext() throws IOException {
-		int i=0;
+		int i= 1;
 		for(Url u : this.setUrl) {
 			String HTML = u.HTML(); 
 			if(HTML != null){
 				FormatWikitext fw = new FormatWikitext(HTML);
+				System.out.println("page " + i + " en cours de traitement ...");
 				fw.ToCSV();
-				System.out.println("page " + i + " en cours de traitement");
+				System.out.println("");
 				i++;
 			}
 		}
@@ -196,9 +195,9 @@ public class Fichier extends Url {
 			else
 				break;
 		}
-		System.out.println("Nombre de tableau trouvés : " + tabTraite[0]);
-		System.out.println("Nombre de tableau importé avec succès : " + tabTraite[1]);
-		System.out.println("Nombre de tableau non importé : " + (tabTraite[0] - tabTraite[1]));
+		System.out.println("Nombre de tableau trouvÃ©s : " + tabTraite[0]);
+		System.out.println("Nombre de tableau importÃ© avec succÃ¨s : " + tabTraite[1]);
+		System.out.println("Nombre de tableau non importÃ© : " + (tabTraite[0] - tabTraite[1]));
 	}
 
 	public void ThisUrlToHTML(int numUrl) throws IOException {
@@ -218,8 +217,8 @@ public class Fichier extends Url {
 	/**
 	 * <!-- begin-user-doc -->
 	 * Mise en place d'un toString() permettant de renvoyer le contenu d'un fichier 
-	 * Le fichier en question contient des Urls précédemment proposé par l'utilisateur
-	 * Ou pour visualiser simplement le contenu du/des fichier(s) utilisé(s) contenant des String ou direcetment des Urls 
+	 * Le fichier en question contient des Urls prÃ©cÃ©demment proposÃ© par l'utilisateur
+	 * Ou pour visualiser simplement le contenu du/des fichier(s) utilisÃ©(s) contenant des String ou direcetment des Urls 
 	 * <!-- end-user-doc -->
 	 * 
 	 * @generated
