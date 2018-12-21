@@ -132,7 +132,7 @@ public class FormatWikitext
 			if(tabfinal1[i].contains("|")) { //Permet de supprimer les balises avant les noms des cols
 				String[]separateur2 = tabfinal1[i].split("\\|");
 				tabfinal1[i] = separateur2[1];
-			}
+			}	
 		}
 		FormatWikitext result = new FormatWikitext(Arrays.toString(tabfinal1));
 		return result;
@@ -295,9 +295,9 @@ public class FormatWikitext
 			ProductionCSV head = headToCSV();
 			ProductionCSV body = rowToCSV();
 			result = (head.csv + "\n" +body.csv);
-			/*ProductionCSV prod = new ProductionCSV(result);
-			prod.generateCSV(title, tabCourant);*/
-			System.out.println(i+1 + " tableaux traitÃ©s");
+			ProductionCSV prod = new ProductionCSV(result);
+			prod.generateCSVFromWikitext(title, tabCourant);
+			//System.out.println(i+1 + " tableaux traitÃ©s");
 		}
 	}
 
