@@ -41,9 +41,9 @@ public class FormatHTML extends Thread
 	/**
 	 * <!-- begin-user-doc -->
 	 * Renvoie la production sous format CSV de tous les tableaux de la page html courante.
-	 * Fait un premier tour dans la page html courante afin de déterminer le nombre de tableaux �  convertir.
+	 * Fait un premier tour dans la page html courante afin de dÃ©terminer le nombre de tableaux Ã  convertir.
 	 * Ensuite boucle afin de traiter les tableaux 1 par 1
-	 * Puis les ajoute �  la production CSVfinal,
+	 * Puis les ajoute Ã  la production CSVfinal,
 	 * On distingue deux traitements differents,celle de la tete du tableau, et celle du corps.
 	 * <!--  end-user-doc  -->
 	 * @throws IOException 
@@ -72,8 +72,8 @@ public class FormatHTML extends Thread
 				}
 			}
 		}
-		System.out.println("Tab import� : " + nbTabCreate);
-		System.out.println("Tab de la page : " + nbtab);
+		//System.out.println("Tab importé : " + nbTabCreate);
+		//System.out.println("Tab de la page : " + nbtab);
 	}
 
 	public int getNbTab() {
@@ -112,7 +112,7 @@ public class FormatHTML extends Thread
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * Renvoie l'intérieur du tableau obtenu par PremierSplit()
+	 * Renvoie l'intÃ©rieur du tableau obtenu par PremierSplit()
 	 * Pour cela on recupere tout ce qu'il y a entre le debut du tableau et la fin caracterise par </tbody>
 	 * <!--  end-user-doc  -->
 	 * @generated
@@ -147,7 +147,7 @@ public class FormatHTML extends Thread
 	 * <!-- begin-user-doc -->
 	 * Ici commence le traitement de la tete.
 	 * Les differentes lignes du tableau sont caracterisees par <tr>.
-	 * Et les noms des colonnes sont notés dans la premiere ligne du tableau.
+	 * Et les noms des colonnes sont notÃ©s dans la premiere ligne du tableau.
 	 * C est pourquoi nous recuperons seulement la premiere ligne
 	 * <!--  end-user-doc  -->
 	 * @generated
